@@ -21,7 +21,8 @@ export const gamesData = [
     cons: [
       "Puede ser lento con 5 jugadores",
       "Curva de aprendizaje inicial"
-    ]
+    ],
+    featured: true
   },
   {
     id: 2,
@@ -44,7 +45,8 @@ export const gamesData = [
     cons: [
       "Puede ser frustrante para algunos",
       "Temática abstracta"
-    ]
+    ],
+    featured: true
   },
   {
     id: 3,
@@ -67,7 +69,8 @@ export const gamesData = [
     cons: [
       "Puede sufrir de quarterback",
       "Temática puede ser pesada"
-    ]
+    ],
+    featured: false
   },
   {
     id: 4,
@@ -90,7 +93,8 @@ export const gamesData = [
     cons: [
       "Depende del idioma",
       "Puede ser difícil para algunos"
-    ]
+    ],
+    featured: true
   },
   {
     id: 5,
@@ -113,7 +117,8 @@ export const gamesData = [
     cons: [
       "Puede ser frustrante si te bloquean",
       "Algo de suerte en el draw"
-    ]
+    ],
+    featured: false
   },
   {
     id: 6,
@@ -136,7 +141,8 @@ export const gamesData = [
     cons: [
       "Iconografía compleja inicialmente",
       "Poca interacción directa"
-    ]
+    ],
+    featured: false
   },
   {
     id: 7,
@@ -160,7 +166,8 @@ export const gamesData = [
       "Dependiente de la suerte",
       "Puede alargarse demasiado",
       "El líder puede ser atacado"
-    ]
+    ],
+    featured: false
   },
   {
     id: 8,
@@ -183,7 +190,8 @@ export const gamesData = [
     cons: [
       "Puede ser repetitivo",
       "Poca profundidad estratégica"
-    ]
+    ],
+    featured: false
   },
   {
     id: 9,
@@ -206,7 +214,8 @@ export const gamesData = [
     cons: [
       "Poca profundidad",
       "Puede volverse predecible"
-    ]
+    ],
+    featured: false
   },
   {
     id: 10,
@@ -230,7 +239,8 @@ export const gamesData = [
       "Puede ser frustrante",
       "Eliminación de jugadores",
       "Depende del grupo"
-    ]
+    ],
+    featured: false
   },
   {
     id: 11,
@@ -253,7 +263,8 @@ export const gamesData = [
     cons: [
       "Solo para 2 jugadores",
       "Puede ser intenso para algunos"
-    ]
+    ],
+    featured: false
   },
   {
     id: 12,
@@ -276,7 +287,8 @@ export const gamesData = [
     cons: [
       "Solo para 2 jugadores",
       "Puede volverse repetitivo"
-    ]
+    ],
+    featured: false
   },
   {
     id: 13,
@@ -300,7 +312,8 @@ export const gamesData = [
       "Puede ser cerebral",
       "Curva de aprendizaje",
       "Análisis parálisis posible"
-    ]
+    ],
+    featured: false
   },
   {
     id: 14,
@@ -324,7 +337,8 @@ export const gamesData = [
       "Sin profundidad estratégica",
       "Puede ser caótico",
       "Limitado para adultos"
-    ]
+    ],
+    featured: false
   },
   {
     id: 15,
@@ -348,7 +362,8 @@ export const gamesData = [
       "Mucha suerte involucrada",
       "Puede ser frustrante",
       "Eliminación indirecta"
-    ]
+    ],
+    featured: false
   },
   {
     id: 16,
@@ -372,7 +387,8 @@ export const gamesData = [
       "Puede frustrarse si te bloquean",
       "Algo de suerte en el robo",
       "Partidas pueden alargarse"
-    ]
+    ],
+    featured: false
   }
 ];
 
