@@ -23,8 +23,7 @@ const AdminGameForm = ({ initialData, onSubmit, onCancel }) => {
     pros: '',
     cons: '',
     featured: false
-  }
-  )
+  });
 
   useEffect(() => {
     if (initialData) {
@@ -40,14 +39,15 @@ const AdminGameForm = ({ initialData, onSubmit, onCancel }) => {
         review: initialData.review || '',
         externalLink: initialData.externalLink || '',
         pros: initialData.pros?.join('\n') || '',
-        cons: initialData.cons?.join('\n') || ''
+        cons: initialData.cons?.join('\n') || '',
+        featured: initialData.featured || false
       });
     } else {
       // Reset form for adding new game
       setFormData({
         name: '', players: '', minAge: '', duration: '', categories: '',
         difficulty: 'Fácil', rating: '', shortDescription: '', review: '',
-        externalLink: '', pros: '', cons: ''
+        externalLink: '', pros: '', cons: '', featured: false
       });
     }
   }, [initialData]);
@@ -74,7 +74,8 @@ const AdminGameForm = ({ initialData, onSubmit, onCancel }) => {
       rating: parseFloat(formData.rating) || null,
       categories: formData.categories.split(',').map(cat => cat.trim()).filter(cat => cat),
       pros: formData.pros.split('\n').filter(pro => pro.trim()),
-      cons: formData.cons.split('\n').filter(con => con.trim())
+      cons: formData.cons.split('\n').filter(con => con.trim()),
+      featured: formData.featured
     };
 
     onSubmit(processedData);
@@ -124,6 +125,19 @@ const AdminGameForm = ({ initialData, onSubmit, onCancel }) => {
               <div>
                 <label className="block text-white font-medium mb-2">Rating (1-5)</label>
                 <Input name="rating" type="number" step="0.1" min="1" max="5" value={formData.rating} onChange={handleInputChange} placeholder="Ej: 4.5" className="glass-effect border-white/20 text-white" />
+              </div>
+              <div className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  id="featured"
+                  name="featured"
+                  checked={formData.featured}
+                  onChange={handleInputChange}
+                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+                />
+                <label htmlFor="featured" className="text-white font-medium">
+                  ¿Juego destacado en la página principal?
+                </label>
               </div>
             </div>
             
