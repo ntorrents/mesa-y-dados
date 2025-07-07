@@ -9,7 +9,7 @@ const DataContext = createContext();
 export const useData = () => useContext(DataContext);
 
 // Version control for data
-const DATA_VERSION = "1.0.1"; // Increment this when you add new games
+const DATA_VERSION = "1.0.2"; // Increment this when you add new games
 const VERSION_KEY = "mesa-dados-data-version";
 
 export const DataProvider = ({ children }) => {

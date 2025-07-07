@@ -1,16 +1,36 @@
-# Node
+# Node modules
 node_modules/
+
+# Build output
 dist/
-.env
 
-# Sistema
-.DS_Store
-
-# Logs
+# Log files
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# IDEs
+# Local env
+.env
+.env.*.local
+
+# Vite cache
+.vite/
+.cache/
+
+# macOS system files
+.DS_Store
+
+# IDE/editor config
 .vscode/
 .idea/
+
+# Test coverage
+coverage/
+
+# Output from tools or plugins
+*.log
+*.tsbuildinfo
+
+# Optional: images or assets that shouldn't be versioned
+# public/assets/tmp/
+# src/assets/uploads/

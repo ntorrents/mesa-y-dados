@@ -2,6 +2,7 @@ export const gamesData = [
 	{
 		id: 2,
 		name: "Azul",
+		image: "/assets/images/games/azul.jpeg",
 		players: "2-4",
 		minAge: 8,
 		duration: "30-45 min",
@@ -25,6 +26,7 @@ export const gamesData = [
 	{
 		id: 3,
 		name: "Pandemic",
+		image: "/assets/images/games/pandemic.png",
 		players: "2-4",
 		minAge: 13,
 		duration: "45-60 min",
@@ -47,7 +49,8 @@ export const gamesData = [
 	},
 	{
 		id: 4,
-		name: "Codenames",
+		name: "Código Secreto",
+		image: "/assets/images/games/codigo-secreto.jpg",
 		players: "2-8",
 		minAge: 14,
 		duration: "15-30 min",
@@ -69,7 +72,8 @@ export const gamesData = [
 	},
 	{
 		id: 5,
-		name: "Ticket to Ride",
+		name: "Aventureros al tren",
+		image: "/assets/images/games/aventureros-al-tren.webp",
 		players: "2-5",
 		minAge: 8,
 		duration: "30-60 min",
@@ -92,6 +96,7 @@ export const gamesData = [
 	{
 		id: 6,
 		name: "7 Wonders",
+		image: "/assets/images/games/7-wonders.jpg",
 		players: "2-7",
 		minAge: 10,
 		duration: "30-45 min",
@@ -114,6 +119,7 @@ export const gamesData = [
 	{
 		id: 7,
 		name: "Catan",
+		image: "/assets/images/games/catan.jpg",
 		players: "3-4",
 		minAge: 10,
 		duration: "60-90 min",
@@ -141,6 +147,7 @@ export const gamesData = [
 	{
 		id: 8,
 		name: "Trio",
+		image: "/assets/images/games/trio.jpg",
 		players: "3-6",
 		minAge: 8,
 		duration: "15-20 min",
@@ -164,6 +171,7 @@ export const gamesData = [
 	{
 		id: 9,
 		name: "Manchas",
+		image: "/assets/images/games/manchas.jpg",
 		players: "2-4",
 		minAge: 8,
 		duration: "20-30 min",
@@ -187,6 +195,7 @@ export const gamesData = [
 	{
 		id: 10,
 		name: "High Society",
+		image: "/assets/images/games/high society.webp",
 		players: "3-5",
 		minAge: 10,
 		duration: "15-30 min",
@@ -214,6 +223,7 @@ export const gamesData = [
 	{
 		id: 11,
 		name: "Splendor Duel",
+		image: "/assets/images/games/splendor-duel.jpeg",
 		players: "2",
 		minAge: 10,
 		duration: "20-30 min",
@@ -237,6 +247,7 @@ export const gamesData = [
 	{
 		id: 12,
 		name: "Jaipur",
+		image: "/assets/images/games/jaipur.webp",
 		players: "2",
 		minAge: 8,
 		duration: "20-30 min",
@@ -260,6 +271,7 @@ export const gamesData = [
 	{
 		id: 13,
 		name: "Symbiose",
+		image: "/assets/images/games/symbiose.webp",
 		players: "2-4",
 		minAge: 10,
 		duration: "30-45 min",
@@ -287,6 +299,7 @@ export const gamesData = [
 	{
 		id: 14,
 		name: "Pelusas",
+		image: "/assets/images/games/pelusas.webp",
 		players: "2-6",
 		minAge: 6,
 		duration: "10-15 min",
@@ -313,7 +326,8 @@ export const gamesData = [
 	},
 	{
 		id: 15,
-		name: "6 qui prend",
+		name: "¡Toma 6!",
+		image: "/assets/images/games/toma-6.webp",
 		players: "2-10",
 		minAge: 8,
 		duration: "20-30 min",
@@ -323,7 +337,7 @@ export const gamesData = [
 		shortDescription:
 			"Evita ser el sexto en colocar cartas en las filas en este tenso juego de cartas.",
 		review:
-			"6 qui prend (también conocido como Take 5) es un juego de cartas brillante que funciona con cualquier número de jugadores. La mecánica es simple: coloca cartas en filas ascendentes, pero si eres el sexto en una fila, te llevas todas las cartas (y sus puntos negativos). La tensión surge de la selección simultánea de cartas y la incertidumbre sobre las decisiones de otros jugadores. Es fácil de explicar pero genera momentos de gran tensión y risas. Perfecto para grupos grandes y como juego de cierre de sesión.",
+			"Toma 6 es un juego de cartas brillante que funciona con cualquier número de jugadores. La mecánica es simple: coloca cartas en filas ascendentes, pero si eres el sexto en una fila, te llevas todas las cartas (y sus puntos negativos). La tensión surge de la selección simultánea de cartas y la incertidumbre sobre las decisiones de otros jugadores. Es fácil de explicar pero genera momentos de gran tensión y risas. Perfecto para grupos grandes y como juego de cierre de sesión.",
 		externalLink: "https://boardgamegeek.com/boardgame/432/6-nimmt",
 		pros: [
 			"Funciona con muchos jugadores",
@@ -339,36 +353,9 @@ export const gamesData = [
 		featured: false,
 	},
 	{
-		id: 16,
-		name: "Aventureros al Tren",
-		players: "2-5",
-		minAge: 8,
-		duration: "30-60 min",
-		categories: ["Familiar", "Estrategia"],
-		difficulty: "Fácil",
-		rating: 4.4,
-		shortDescription:
-			"La versión española de Ticket to Ride con rutas por la península ibérica.",
-		review:
-			"Aventureros al Tren es la adaptación española del exitoso Ticket to Ride, ambientado en la península ibérica. Mantiene toda la mecánica adictiva del original: coleccionar cartas de tren y reclamar rutas ferroviarias entre ciudades. El mapa español añade un toque local que resulta familiar y emocionante para jugadores hispanohablantes. La tensión aumenta cuando las rutas se vuelven escasas y los jugadores compiten por las mismas conexiones. Es el gateway game perfecto que combina estrategia accesible con componentes de calidad y una temática atractiva.",
-		externalLink:
-			"https://boardgamegeek.com/boardgame/14996/ticket-ride-europe",
-		pros: [
-			"Temática local atractiva",
-			"Gateway game perfecto",
-			"Componentes de calidad",
-			"Escalabilidad excelente",
-		],
-		cons: [
-			"Puede frustrarse si te bloquean",
-			"Algo de suerte en el robo",
-			"Partidas pueden alargarse",
-		],
-		featured: false,
-	},
-	{
 		id: 17,
 		name: "7 Wonders Duel",
+		image: "/assets/images/games/7-wonders-duel.png",
 		players: "2",
 		minAge: 10,
 		duration: "30 min",
@@ -392,6 +379,7 @@ export const gamesData = [
 	{
 		id: 18,
 		name: "Blind Business",
+		image: "/assets/images/games/blind-business.jpeg",
 		players: "3-6",
 		minAge: 8,
 		duration: "15-20 min",
@@ -409,7 +397,8 @@ export const gamesData = [
 	},
 	{
 		id: 19,
-		name: "Braintopia",
+		name: "Cortex",
+		image: "/assets/images/games/cortex.jpg",
 		players: "2-6",
 		minAge: 8,
 		duration: "15-20 min",
@@ -419,7 +408,7 @@ export const gamesData = [
 		shortDescription:
 			"Desafía tu mente con pruebas de lógica, memoria y percepción en un juego veloz.",
 		review:
-			"Braintopia es una colección de minijuegos mentales que desafían distintas habilidades cognitivas. Cada prueba es breve y distinta, lo que mantiene la atención de todos los jugadores. Es ideal para familias o eventos sociales, aunque su rejugabilidad puede ser limitada una vez conocidas las pruebas.",
+			"Cortex es una colección de minijuegos mentales que desafían distintas habilidades cognitivas. Cada prueba es breve y distinta, lo que mantiene la atención de todos los jugadores. Es ideal para familias o eventos sociales, aunque su rejugabilidad puede ser limitada una vez conocidas las pruebas.",
 		externalLink: "https://boardgamegeek.com/boardgame/193042/braintopia",
 		pros: [
 			"Estimula distintas habilidades",
@@ -431,7 +420,8 @@ export const gamesData = [
 	},
 	{
 		id: 20,
-		name: "Catan Card Game",
+		name: "Catan (cartas)",
+		image: "/assets/images/games/catan-cartas.jpg",
 		players: "2",
 		minAge: 10,
 		duration: "45-60 min",
@@ -441,7 +431,7 @@ export const gamesData = [
 		shortDescription:
 			"Versión de cartas para dos jugadores basada en el clásico Catan.",
 		review:
-			"Catan Card Game adapta el universo de Catan a un formato más compacto y competitivo para dos jugadores. Mantiene la esencia del juego de recursos y añade más profundidad táctica con eventos y mejoras. Puede parecer complejo al inicio, pero ofrece una experiencia rica para quienes buscan un duelo estratégico.",
+			"Catan Juego de Cartas adapta el universo de Catan a un formato más compacto y competitivo para dos jugadores. Mantiene la esencia del juego de recursos y añade más profundidad táctica con eventos y mejoras. Puede parecer complejo al inicio, pero ofrece una experiencia rica para quienes buscan un duelo estratégico.",
 		externalLink: "https://boardgamegeek.com/boardgame/278/catan-card-game",
 		pros: [
 			"Buena adaptación para 2",
@@ -453,7 +443,8 @@ export const gamesData = [
 	},
 	{
 		id: 21,
-		name: "Citadels",
+		name: "Ciudadelas",
+		image: "/assets/images/games/ciudadelas.webp",
 		players: "2-8",
 		minAge: 10,
 		duration: "30-60 min",
@@ -463,7 +454,7 @@ export const gamesData = [
 		shortDescription:
 			"Construye tu ciudad y sabotea a tus rivales eligiendo personajes secretos.",
 		review:
-			"Citadels es un juego de roles ocultos donde cada ronda eliges un personaje con habilidades únicas para construir tu ciudad o sabotear a los demás. Tiene mucha interacción y bluff, y escala bien con distintos números de jugadores. Las partidas pueden ser tensas y muy variadas según las elecciones.",
+			"Ciudadelas es un juego de roles ocultos donde cada ronda eliges un personaje con habilidades únicas para construir tu ciudad o sabotear a los demás. Tiene mucha interacción y bluff, y escala bien con distintos números de jugadores. Las partidas pueden ser tensas y muy variadas según las elecciones.",
 		externalLink: "https://boardgamegeek.com/boardgame/478/citadels",
 		pros: [
 			"Alta interacción",
@@ -476,6 +467,7 @@ export const gamesData = [
 	{
 		id: 22,
 		name: "Coloretto",
+		image: "/assets/images/games/coloretto.jpg",
 		players: "2-5",
 		minAge: 8,
 		duration: "20-30 min",
@@ -493,6 +485,7 @@ export const gamesData = [
 	{
 		id: 23,
 		name: "Deep Sea Adventure",
+		image: "/assets/images/games/deep-sea-adventures.webp",
 		players: "2-6",
 		minAge: 8,
 		duration: "30 min",
@@ -516,6 +509,7 @@ export const gamesData = [
 	{
 		id: 24,
 		name: "Exploding Kittens",
+		image: "/assets/images/games/exploding-kittens.jpeg",
 		players: "2-5",
 		minAge: 7,
 		duration: "15 min",
@@ -534,7 +528,8 @@ export const gamesData = [
 	},
 	{
 		id: 25,
-		name: "Exploding Kittens: 2-Player Edition",
+		name: "Exploding Kittens: Edición 2 jugadores",
+		image: "/assets/images/games/exploding-kittens-2-jugadores.jpeg",
 		players: "2",
 		minAge: 7,
 		duration: "10-15 min",
@@ -552,46 +547,9 @@ export const gamesData = [
 		featured: false,
 	},
 	{
-		id: 26,
-		name: "Exploding Kittens: Barking Kittens",
-		players: "2-5",
-		minAge: 7,
-		duration: "15 min",
-		categories: ["Expansión", "Party"],
-		difficulty: "Fácil",
-		rating: 3.8,
-		shortDescription:
-			"Expansión para Exploding Kittens con cartas nuevas y efectos caóticos.",
-		review:
-			"Barking Kittens añade nuevas cartas y mecánicas al juego base, como el casco de dos cabezas y cartas de clones. Aporta frescura al juego base y permite más interacción absurda. Ideal para quienes buscan ampliar la locura del juego original.",
-		externalLink:
-			"https://boardgamegeek.com/boardgame/309840/exploding-kittens-barking-kittens-expansion",
-		pros: ["Añade variedad", "Más interacción", "Divertida expansión"],
-		cons: ["Requiere juego base", "No cambia mecánicas fundamentales"],
-		featured: false,
-	},
-	{
-		id: 27,
-		name: "Exploding Kittens: Streaking Kittens",
-		players: "2-5",
-		minAge: 7,
-		duration: "15 min",
-		categories: ["Expansión", "Party"],
-		difficulty: "Fácil",
-		rating: 3.9,
-		shortDescription:
-			"Expansión que permite a los jugadores llevar un gato explosivo en secreto.",
-		review:
-			"Esta expansión introduce la carta de 'Gato Desnudo', que permite mantener un Exploding Kitten en tu mano. Esto añade un nuevo nivel de bluff e incertidumbre, aumentando la tensión. Es una expansión que refresca sin complicar demasiado el juego base.",
-		externalLink:
-			"https://boardgamegeek.com/boardgame/226358/exploding-kittens-streaking-kittens-expansion",
-		pros: ["Nuevo giro estratégico", "Aumenta la tensión", "Fácil de integrar"],
-		cons: ["Requiere juego base", "Puede confundir a nuevos jugadores"],
-		featured: false,
-	},
-	{
 		id: 28,
-		name: "Forbidden Desert",
+		name: "Desierto Prohibido",
+		image: "/assets/images/games/desierto-prohibido.jpg",
 		players: "2-5",
 		minAge: 10,
 		duration: "45 min",
@@ -601,7 +559,7 @@ export const gamesData = [
 		shortDescription:
 			"Sobrevive a una tormenta de arena mientras reconstruyes una nave voladora.",
 		review:
-			"Forbidden Desert es un juego cooperativo tenso donde los jugadores deben recuperar piezas de una nave antes de ser enterrados por la arena. Ofrece un buen equilibrio entre estrategia, cooperación y azar. Cada jugador tiene un rol con habilidades únicas. Las decisiones son importantes y el tablero cambia constantemente.",
+			"Desierto Prohibido es un juego cooperativo tenso donde los jugadores deben recuperar piezas de una nave antes de ser enterrados por la arena. Ofrece un buen equilibrio entre estrategia, cooperación y azar. Cada jugador tiene un rol con habilidades únicas. Las decisiones son importantes y el tablero cambia constantemente.",
 		externalLink: "https://boardgamegeek.com/boardgame/136063/forbidden-desert",
 		pros: [
 			"Alta tensión cooperativa",
@@ -612,26 +570,9 @@ export const gamesData = [
 		featured: false,
 	},
 	{
-		id: 29,
-		name: "Fruit Fight",
-		players: "2-6",
-		minAge: 6,
-		duration: "15-20 min",
-		categories: ["Niños", "Cartas"],
-		difficulty: "Fácil",
-		rating: 3.4,
-		shortDescription:
-			"Lanza frutas en este juego veloz de reflejos y coincidencias.",
-		review:
-			"Fruit Fight es un juego infantil que mezcla velocidad y memoria visual. Las cartas con frutas coloridas y mecánicas sencillas lo hacen ideal para los más pequeños. Es un juego que depende mucho de reflejos y puede volverse caótico en grupo.",
-		externalLink: "https://boardgamegeek.com/boardgame/267083/fruit-fight",
-		pros: ["Muy accesible", "Divertido para niños", "Componentes coloridos"],
-		cons: ["Repetitivo para adultos", "Caótico con muchos jugadores"],
-		featured: false,
-	},
-	{
 		id: 30,
-		name: "Ghost Blitz",
+		name: "Fantasma Blitz",
+		image: "/assets/images/games/fantasma-blitz.jpeg",
 		players: "2-8",
 		minAge: 8,
 		duration: "20 min",
@@ -641,7 +582,7 @@ export const gamesData = [
 		shortDescription:
 			"Sé el más rápido en agarrar el objeto correcto entre cinco opciones.",
 		review:
-			"Ghost Blitz es un juego de reflejos brillante donde la observación y la velocidad lo son todo. Las cartas presentan objetos con colores y formas mezclados, y los jugadores deben agarrar rápidamente el objeto correcto. Ideal para familias, fiestas y como filler divertido.",
+			"Fantasma Blitz es un juego de reflejos brillante donde la observación y la velocidad lo son todo. Las cartas presentan objetos con colores y formas mezclados, y los jugadores deben agarrar rápidamente el objeto correcto. Ideal para familias, fiestas y como filler divertido.",
 		externalLink: "https://boardgamegeek.com/boardgame/83195/ghost-blitz",
 		pros: ["Altamente dinámico", "Risas aseguradas", "Reglas inmediatas"],
 		cons: ["Requiere buena vista", "Puede generar caos en grupo"],
