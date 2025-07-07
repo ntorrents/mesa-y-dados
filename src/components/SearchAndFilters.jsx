@@ -15,11 +15,11 @@ const FilterSidebar = ({ onSearch, onFilter, filters, onClearFilters }) => {
     difficulty: ''
   });
   const [expandedSections, setExpandedSections] = useState({
-    categories: true,
-    players: true,
-    duration: true,
-    age: true,
-    difficulty: true
+    categories: false,
+    players: false,
+    duration: false,
+    age: false,
+    difficulty: false
   });
 
   const categories = ['Estrategia', 'Party', 'Cooperativo', 'Familiar', 'Abstracto', 'Comercio', 'Cartas', 'Subasta'];
