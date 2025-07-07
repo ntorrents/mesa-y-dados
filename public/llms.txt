@@ -1,0 +1,8 @@
+## Pages
+- [- Mesa & Dados](/blogpost): No description available
+- [- Mesa & Dados](/gamedetail): No description available
+- [Administración - Mesa & Dados](/admin): Panel de administración para gestionar el catálogo de juegos de mesa y el blog.
+- [Blog - Mesa & Dados](/blog): Rankings, recomendaciones y guías sobre juegos de mesa. Descubre nuevas estrategias y encuentra tu próximo juego favorito.
+- [Catálogo de Juegos - Mesa & Dados](/games): Explora nuestra colección completa de juegos de mesa con filtros avanzados por número de jugadores, duración, edad y categoría.
+- [Contacto - Mesa & Dados](/contact): Ponte en contacto conmigo para recomendaciones de juegos, colaboraciones o cualquier consulta sobre juegos de mesa.
+- [Mesa & Dados - Tu Catálogo Personal de Juegos de Mesa](/home): Descubre los mejores juegos de mesa con reseñas detalladas, filtros avanzados y recomendaciones personalizadas. Tu guía definitiva para encontrar tu próximo juego favorito.
