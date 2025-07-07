@@ -21,8 +21,8 @@ const AdminGameForm = ({ initialData, onSubmit, onCancel }) => {
     review: '',
     externalLink: '',
     pros: '',
-    cons: ''
-  });
+    cons: '',
+    featured: false
 
   useEffect(() => {
     if (initialData) {
