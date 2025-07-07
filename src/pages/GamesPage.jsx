@@ -255,6 +255,10 @@ const GamesPage = () => {
                 <FilterSidebar
                   onSearch={(term) => handleSearch(term, games)}
                   onFilter={handleFilter}
+                  onClearFilters={handleClearFilters}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
