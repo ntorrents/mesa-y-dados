@@ -23,6 +23,8 @@ const AdminGameForm = ({ initialData, onSubmit, onCancel }) => {
     pros: '',
     cons: '',
     featured: false
+  }
+  )
 
   useEffect(() => {
     if (initialData) {
