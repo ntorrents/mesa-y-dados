@@ -40,7 +40,7 @@ const HomePage = () => {
       </Helmet>
 
       <div className="min-h-screen">
-        <section className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+        <section className="relative py-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-purple-900/20 to-pink-900/20"></div>
           
           <div className="relative max-w-7xl mx-auto text-center">
@@ -48,13 +48,13 @@ const HomePage = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="space-y-8"
+              className="space-y-6"
             >
-              <h1 className="text-4xl md:text-6xl font-bold">
+              <h1 className="text-3xl md:text-5xl font-bold">
                 <span className="gradient-text">Mesa & Dados</span>
               </h1>
               
-              <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto">
+              <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto">
                 Tu catálogo personal de juegos de mesa con reseñas detalladas y recomendaciones que realmente importan
               </p>
 
@@ -66,17 +66,17 @@ const HomePage = () => {
                 className="max-w-2xl mx-auto"
               >
                 <div className="relative">
-                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 h-6 w-6" />
+                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
                   <Input
                     type="text"
                     placeholder="¿Qué juego estás buscando?"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-12 pr-32 h-14 text-lg glass-effect border-white/20 text-white placeholder-gray-400 search-glow"
+                    className="pl-12 pr-28 h-12 text-base glass-effect border-white/20 text-white placeholder-gray-400 search-glow"
                   />
                   <Button
                     type="submit"
-                    className="absolute right-2 top-2 h-10 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700"
+                    className="absolute right-2 top-2 h-8 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-sm"
                   >
                     Buscar
                   </Button>
@@ -87,15 +87,15 @@ const HomePage = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
-                className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto mt-16"
+                className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mt-12"
               >
                 {stats.map((stat, index) => (
                   <div key={index} className="text-center">
-                    <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 mb-3">
-                      <stat.icon className="h-6 w-6 text-white" />
+                    <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 mb-2">
+                      <stat.icon className="h-5 w-5 text-white" />
                     </div>
-                    <div className="text-2xl font-bold text-white">{stat.value}</div>
-                    <div className="text-gray-400 text-sm">{stat.label}</div>
+                    <div className="text-xl font-bold text-white">{stat.value}</div>
+                    <div className="text-gray-400 text-xs">{stat.label}</div>
                   </div>
                 ))}
               </motion.div>
@@ -103,24 +103,24 @@ const HomePage = () => {
           </div>
         </section>
 
-        <section className="py-20 px-4 sm:px-6 lg:px-8">
+        <section className="py-16 px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              className="text-center mb-12"
+              className="text-center mb-10"
             >
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
                 Juegos Destacados
               </h2>
-              <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+              <p className="text-gray-400 text-base max-w-2xl mx-auto">
                 Los juegos mejor valorados de nuestra colección, perfectos para empezar tu aventura
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {featuredGames.map((game, index) => (
                 <GameCard key={game.id} game={game} index={index} />
               ))}
@@ -131,36 +131,36 @@ const HomePage = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
               viewport={{ once: true }}
-              className="text-center mt-12"
+              className="text-center mt-10"
             >
               <Link to="/juegos">
                 <Button size="lg" className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700">
                   Ver Todos los Juegos
-                  <ArrowRight className="ml-2 h-5 w-5" />
+                  <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
             </motion.div>
           </div>
         </section>
 
-        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-slate-900/50 to-gray-900/50">
+        <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-slate-900/50 to-gray-900/50">
           <div className="max-w-7xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              className="text-center mb-12"
+              className="text-center mb-10"
             >
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
                 Últimas del Blog
               </h2>
-              <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+              <p className="text-gray-400 text-base max-w-2xl mx-auto">
                 Rankings, recomendaciones y guías para sacar el máximo partido a tus juegos
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {blogPosts.slice(0, 3).map((post, index) => (
                 <motion.div
                   key={post.id}
@@ -175,21 +175,21 @@ const HomePage = () => {
                         <Badge variant="outline" className="border-blue-500/30 text-blue-400">
                           {post.category}
                         </Badge>
-                        <span className="text-gray-400 text-sm">{post.readTime}</span>
+                        <span className="text-gray-400 text-xs">{post.readTime}</span>
                       </div>
-                      <CardTitle className="text-white hover:text-blue-400 transition-colors">
+                      <CardTitle className="text-white hover:text-blue-400 transition-colors text-lg">
                         <Link to={`/blog/${post.id}`}>
                           {post.title}
                         </Link>
                       </CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-gray-300 mb-4">{post.excerpt}</p>
+                      <p className="text-gray-300 mb-4 text-sm">{post.excerpt}</p>
                       <div className="flex items-center justify-between">
-                        <span className="text-gray-400 text-sm">{post.date}</span>
+                        <span className="text-gray-400 text-xs">{post.date}</span>
                         <Link 
                           to={`/blog/${post.id}`}
-                          className="text-blue-400 hover:text-blue-300 font-medium text-sm transition-colors"
+                          className="text-blue-400 hover:text-blue-300 font-medium text-xs transition-colors"
                         >
                           Leer más →
                         </Link>
@@ -205,31 +205,31 @@ const HomePage = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
               viewport={{ once: true }}
-              className="text-center mt-12"
+              className="text-center mt-10"
             >
               <Link to="/blog">
                 <Button variant="outline" size="lg" className="border-white/20 text-white hover:bg-white/5">
                   Ver Todas las Entradas
-                  <ArrowRight className="ml-2 h-5 w-5" />
+                  <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
             </motion.div>
           </div>
         </section>
 
-        <section className="py-20 px-4 sm:px-6 lg:px-8">
+        <section className="py-16 px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              className="glass-effect rounded-2xl p-12 border border-white/10"
+              className="glass-effect rounded-2xl p-8 border border-white/10"
             >
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
                 ¿Tienes alguna recomendación?
               </h2>
-              <p className="text-gray-300 text-lg mb-8 max-w-2xl mx-auto">
+              <p className="text-gray-300 text-base mb-6 max-w-2xl mx-auto">
                 Me encanta descubrir nuevos juegos. Si tienes alguna recomendación o quieres que reseñe algún juego en particular, no dudes en contactarme.
               </p>
               <Link to="/contacto">

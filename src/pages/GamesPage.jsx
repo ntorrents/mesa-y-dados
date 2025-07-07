@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Grid, List, Users, Clock, BarChart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import GameCard from '@/components/GameCard';
-import SearchAndFilters from '@/components/SearchAndFilters';
+import FilterSidebar from '@/components/SearchAndFilters';
 import { useData } from '@/contexts/DataContext';
 import { Badge } from '@/components/ui/badge';
 
@@ -27,19 +27,19 @@ const GameListItem = ({ game, index }) => {
       className="w-full"
     >
       <Link to={`/juego/${game.id}`}>
-        <div className="flex items-center justify-between p-4 glass-effect rounded-lg border border-white/10 hover:bg-white/5 hover:border-blue-500/30 transition-all duration-300 h-20">
+        <div className="flex items-center justify-between p-3 glass-effect rounded-lg border border-white/10 hover:bg-white/5 hover:border-blue-500/30 transition-all duration-300 h-16">
           <div className="flex-1 min-w-0 mr-4">
-            <p className="text-lg font-bold text-white truncate group-hover:text-blue-400 transition-colors">
+            <p className="text-base font-bold text-white truncate group-hover:text-blue-400 transition-colors">
               {game.name}
             </p>
           </div>
           <div className="hidden sm:flex items-center gap-6 text-sm text-gray-300">
             <div className="flex items-center gap-2">
-              <Users className="h-4 w-4 text-blue-400" />
+              <Users className="h-3 w-3 text-blue-400" />
               <span>{game.players}</span>
             </div>
             <div className="flex items-center gap-2">
-              <Clock className="h-4 w-4 text-green-400" />
+              <Clock className="h-3 w-3 text-green-400" />
               <span>{game.duration}</span>
             </div>
             <div className="flex items-center gap-2">
@@ -163,88 +163,99 @@ const GamesPage = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-12"
+            className="text-center mb-8"
           >
-            <h1 className="text-4xl md:text-5xl font-bold gradient-text mb-4">
+            <h1 className="text-3xl md:text-4xl font-bold gradient-text mb-3">
               Catálogo de Juegos
             </h1>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+            <p className="text-gray-400 text-base max-w-2xl mx-auto">
               Descubre tu próximo juego favorito con nuestros filtros avanzados y reseñas detalladas
             </p>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="mb-8"
-          >
-            <SearchAndFilters
-              onSearch={(term) => handleSearch(term, games)}
-              onFilter={handleFilter}
-              onClearFilters={handleClearFilters}
-            />
-          </motion.div>
+          <div className="flex gap-6">
+            {/* Sidebar de filtros */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="hidden lg:block"
+            >
+              <FilterSidebar
+                onSearch={(term) => handleSearch(term, games)}
+                onFilter={handleFilter}
+                onClearFilters={handleClearFilters}
+              />
+            </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4"
-          >
-            <span className="text-gray-400">
-              {filteredGames.length} juego{filteredGames.length !== 1 ? 's' : ''} encontrado{filteredGames.length !== 1 ? 's' : ''}
-            </span>
-
-            <div className="flex items-center space-x-4">
-              <select
-                value={sortBy}
-                onChange={(e) => handleSort(e.target.value)}
-                className="bg-slate-800 border border-white/20 rounded-md px-3 py-2 text-white text-sm"
+            {/* Contenido principal */}
+            <div className="flex-1">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4"
               >
-                <option value="name">Ordenar por nombre</option>
-                <option value="rating">Ordenar por valoración</option>
-                <option value="players">Ordenar por jugadores</option>
-                <option value="duration">Ordenar por duración</option>
-              </select>
+                <span className="text-gray-400 text-sm">
+                  {filteredGames.length} juego{filteredGames.length !== 1 ? 's' : ''} encontrado{filteredGames.length !== 1 ? 's' : ''}
+                </span>
 
-              <div className="flex border border-white/20 rounded-md overflow-hidden">
-                <Button variant={viewMode === 'grid' ? 'default' : 'ghost'} size="sm" onClick={() => setViewMode('grid')} className="rounded-none">
-                  <Grid className="h-4 w-4" />
-                </Button>
-                <Button variant={viewMode === 'list' ? 'default' : 'ghost'} size="sm" onClick={() => setViewMode('list')} className="rounded-none">
-                  <List className="h-4 w-4" />
-                </Button>
-              </div>
-            </div>
-          </motion.div>
+                <div className="flex items-center space-x-4">
+                  <select
+                    value={sortBy}
+                    onChange={(e) => handleSort(e.target.value)}
+                    className="bg-slate-800 border border-white/20 rounded-md px-3 py-2 text-white text-sm"
+                  >
+                    <option value="name">Ordenar por nombre</option>
+                    <option value="rating">Ordenar por valoración</option>
+                    <option value="players">Ordenar por jugadores</option>
+                    <option value="duration">Ordenar por duración</option>
+                  </select>
 
-          <motion.div layout>
-            <AnimatePresence>
-              {filteredGames.length > 0 ? (
-                <div className={`grid gap-6 ${
-                  viewMode === 'grid' 
-                    ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' 
-                    : 'grid-cols-1'
-                }`}>
-                  {filteredGames.map((game, index) => (
-                     viewMode === 'grid' 
-                     ? <GameCard key={game.id} game={game} index={index} />
-                     : <GameListItem key={game.id} game={game} index={index} />
-                  ))}
+                  <div className="flex border border-white/20 rounded-md overflow-hidden">
+                    <Button variant={viewMode === 'grid' ? 'default' : 'ghost'} size="sm" onClick={() => setViewMode('grid')} className="rounded-none">
+                      <Grid className="h-4 w-4" />
+                    </Button>
+                    <Button variant={viewMode === 'list' ? 'default' : 'ghost'} size="sm" onClick={() => setViewMode('list')} className="rounded-none">
+                      <List className="h-4 w-4" />
+                    </Button>
+                  </div>
                 </div>
-              ) : (
-                <div className="text-center py-20">
-                  <div className="text-6xl mb-4">🎲</div>
-                  <h3 className="text-2xl font-bold text-white mb-2">No se encontraron juegos</h3>
-                  <p className="text-gray-400 mb-6">Prueba a ajustar los filtros o términos de búsqueda</p>
-                  <Button onClick={handleClearFilters} variant="outline">
-                    Limpiar filtros
-                  </Button>
-                </div>
-              )}
-            </AnimatePresence>
-          </motion.div>
+              </motion.div>
+
+              <motion.div layout>
+                <AnimatePresence>
+                  {filteredGames.length > 0 ? (
+                    <div className={`grid gap-4 ${
+                      viewMode === 'grid' 
+                        ? 'grid-cols-1 md:grid-cols-2 xl:grid-cols-3' 
+                        : 'grid-cols-1'
+                    }`}>
+                      {filteredGames.map((game, index) => (
+                         viewMode === 'grid' 
+                         ? <GameCard key={game.id} game={game} index={index} />
+                         : <GameListItem key={game.id} game={game} index={index} />
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="text-center py-20">
+                      <div className="text-6xl mb-4">🎲</div>
+                      <h3 className="text-2xl font-bold text-white mb-2">No se encontraron juegos</h3>
+                      <p className="text-gray-400 mb-6">Prueba a ajustar los filtros o términos de búsqueda</p>
+                      <Button onClick={handleClearFilters} variant="outline">
+                        Limpiar filtros
+                      </Button>
+                    </div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+
+              {/* Filtros móviles */}
+              <div className="lg:hidden mt-6">
+                <FilterSidebar
+                  onSearch={(term) => handleSearch(term, games)}
+                  onFilter={handleFilter}
+          </div>
         </div>
       </div>
     </>
