@@ -54,19 +54,38 @@ const GameListItem = ({ game, index }) => {
   );
 };
 
+const LoadingSpinner = () => (
+  <div className="flex items-center justify-center py-20">
+    <div className="relative">
+      <div className="w-12 h-12 rounded-full border-4 border-blue-500/20 border-t-blue-500 animate-spin"></div>
+      <div className="absolute inset-0 flex items-center justify-center">
+        <span className="text-blue-500 text-xl">🎲</span>
+      </div>
+    </div>
+  </div>
+);
+
 const GamesPage = () => {
   const [searchParams] = useSearchParams();
   const { games } = useData();
   const [filteredGames, setFilteredGames] = useState([]);
   const [viewMode, setViewMode] = useState('grid');
   const [sortBy, setSortBy] = useState('name');
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setFilteredGames(games);
-    const searchQuery = searchParams.get('search');
-    if (searchQuery) {
-      handleSearch(searchQuery, games);
-    }
+    // Simulate loading time to ensure all games are loaded
+    const timer = setTimeout(() => {
+      setFilteredGames(games);
+      setIsLoading(false);
+      
+      const searchQuery = searchParams.get('search');
+      if (searchQuery) {
+        handleSearch(searchQuery, games);
+      }
+    }, 500);
+
+    return () => clearTimeout(timer);
   }, [games, searchParams]);
   
   const handleSearch = (searchTerm, sourceData = games) => {
@@ -149,6 +168,36 @@ const GamesPage = () => {
     });
     setFilteredGames(sorted);
   };
+
+  if (isLoading) {
+    return (
+      <>
+        <Helmet>
+          <title>Catálogo de Juegos - Mesa & Dados</title>
+          <meta name="description" content="Explora nuestra colección completa de juegos de mesa con filtros avanzados por número de jugadores, duración, edad y categoría." />
+        </Helmet>
+
+        <div className="min-h-screen py-8 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-center mb-8"
+            >
+              <h1 className="text-3xl md:text-4xl font-bold gradient-text mb-3">
+                Catálogo de Juegos
+              </h1>
+              <p className="text-gray-400 text-base max-w-2xl mx-auto">
+                Descubre tu próximo juego favorito con nuestros filtros avanzados y reseñas detalladas
+              </p>
+            </motion.div>
+            <LoadingSpinner />
+          </div>
+        </div>
+      </>
+    );
+  }
 
   return (
     <>

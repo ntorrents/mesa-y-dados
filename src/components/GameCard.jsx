@@ -1,5 +1,4 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Users, Clock, Star, ExternalLink } from 'lucide-react';
@@ -7,6 +6,9 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 
 const GameCard = ({ game, index = 0 }) => {
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
+
   const getDifficultyColor = (difficulty) => {
     switch (difficulty) {
       case 'Fácil': return 'difficulty-easy';
@@ -30,6 +32,15 @@ const GameCard = ({ game, index = 0 }) => {
     return categoryMap[category] || 'bg-blue-500';
   };
 
+  const handleImageLoad = () => {
+    setImageLoaded(true);
+  };
+
+  const handleImageError = () => {
+    setImageError(true);
+    setImageLoaded(true);
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -40,10 +51,31 @@ const GameCard = ({ game, index = 0 }) => {
     >
       <Card className="glass-effect border-white/10 overflow-hidden card-hover h-full">
         <div className="relative">
+          {/* Image skeleton/placeholder */}
+          {!imageLoaded && (
+            <div className="w-full h-36 bg-gradient-to-br from-gray-700 to-gray-800 animate-pulse flex items-center justify-center">
+              <div className="text-gray-500 text-xs">🎲</div>
+            </div>
+          )}
+          
+          {/* Actual image */}
           <img  
-            className="w-full h-36 object-cover group-hover:scale-105 transition-transform duration-300"
+            className={`w-full h-36 object-cover group-hover:scale-105 transition-transform duration-300 ${
+              !imageLoaded ? 'absolute inset-0 opacity-0' : 'opacity-100'
+            } ${imageError ? 'hidden' : ''}`}
             alt={`Portada del juego ${game.name}`}
-           src="https://images.unsplash.com/photo-1688984966950-080aa5e3998c" />
+            src="https://images.unsplash.com/photo-1688984966950-080aa5e3998c?auto=format&fit=crop&w=400&q=60"
+            onLoad={handleImageLoad}
+            onError={handleImageError}
+            loading="lazy"
+          />
+
+          {/* Fallback for image error */}
+          {imageError && (
+            <div className="w-full h-36 bg-gradient-to-br from-blue-900 to-purple-900 flex items-center justify-center">
+              <div className="text-white text-2xl">🎲</div>
+            </div>
+          )}
           
           {/* Overlay con información rápida */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">

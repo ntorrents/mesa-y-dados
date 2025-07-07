@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Search, X, ChevronDown, ChevronUp } from 'lucide-react';
 import { Input } from '@/components/ui/input';
@@ -23,6 +23,11 @@ const FilterSidebar = ({ onSearch, onFilter, filters, onClearFilters }) => {
     difficulty: true
   });
 
+  // Debounce refs for sliders
+  const playersTimeoutRef = useRef(null);
+  const durationTimeoutRef = useRef(null);
+  const ageTimeoutRef = useRef(null);
+
   const categories = ['Estrategia', 'Party', 'Cooperativo', 'Familiar', 'Abstracto', 'Comercio', 'Cartas', 'Subasta'];
   const difficulties = ['Fácil', 'Medio', 'Difícil'];
 
@@ -31,10 +36,30 @@ const FilterSidebar = ({ onSearch, onFilter, filters, onClearFilters }) => {
     onSearch(value);
   };
 
+  const debouncedFilterChange = useCallback((key, value, timeoutRef) => {
+    // Clear existing timeout
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+
+    // Update local state immediately for UI responsiveness
+    setLocalFilters(prev => ({ ...prev, [key]: value }));
+
+    // Debounce the actual filter application
+    timeoutRef.current = setTimeout(() => {
+      const newFilters = { ...localFilters, [key]: value };
+      onFilter(newFilters);
+    }, 300); // 300ms delay
+  }, [localFilters, onFilter]);
+
   const handleFilterChange = (key, value) => {
     const newFilters = { ...localFilters, [key]: value };
     setLocalFilters(newFilters);
     onFilter(newFilters);
+  };
+
+  const handleSliderChange = (key, value, timeoutRef) => {
+    debouncedFilterChange(key, value, timeoutRef);
   };
 
   const toggleCategory = (category) => {
@@ -45,6 +70,11 @@ const FilterSidebar = ({ onSearch, onFilter, filters, onClearFilters }) => {
   };
 
   const clearAllFilters = () => {
+    // Clear all timeouts
+    if (playersTimeoutRef.current) clearTimeout(playersTimeoutRef.current);
+    if (durationTimeoutRef.current) clearTimeout(durationTimeoutRef.current);
+    if (ageTimeoutRef.current) clearTimeout(ageTimeoutRef.current);
+
     const resetFilters = {
       players: [1, 8],
       duration: [15, 240],
@@ -179,7 +209,7 @@ const FilterSidebar = ({ onSearch, onFilter, filters, onClearFilters }) => {
           </div>
           <Slider
             value={localFilters.players}
-            onValueChange={(value) => handleFilterChange('players', value)}
+            onValueChange={(value) => handleSliderChange('players', value, playersTimeoutRef)}
             max={8}
             min={1}
             step={1}
@@ -196,7 +226,7 @@ const FilterSidebar = ({ onSearch, onFilter, filters, onClearFilters }) => {
           </div>
           <Slider
             value={localFilters.duration}
-            onValueChange={(value) => handleFilterChange('duration', value)}
+            onValueChange={(value) => handleSliderChange('duration', value, durationTimeoutRef)}
             max={240}
             min={15}
             step={15}
@@ -213,7 +243,7 @@ const FilterSidebar = ({ onSearch, onFilter, filters, onClearFilters }) => {
           </div>
           <Slider
             value={localFilters.minAge}
-            onValueChange={(value) => handleFilterChange('minAge', value)}
+            onValueChange={(value) => handleSliderChange('minAge', value, ageTimeoutRef)}
             max={18}
             min={3}
             step={1}
