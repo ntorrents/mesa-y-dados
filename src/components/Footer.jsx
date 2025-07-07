@@ -68,7 +68,9 @@ const Footer = () => {
 
 				<div className="border-t border-white/10 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
 					<p className="text-gray-400 text-sm">
-						© 2025 Mesa & Dados. Hecho para los amantes de los juegos de mesa.
+						© 2024 Mesa & Dados. Hecho con{" "}
+						<Heart className="inline h-4 w-4 text-red-500" /> para los amantes
+						de los juegos de mesa.
 					</p>
 					<p className="text-gray-400 text-sm mt-2 md:mt-0">Versión 1.0</p>
 				</div>

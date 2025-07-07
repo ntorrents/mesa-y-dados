@@ -12,6 +12,7 @@ const Header = () => {
   const navigation = [
     { name: 'Inicio', href: '/' },
     { name: 'Juegos', href: '/juegos' },
+    { name: 'Favoritos', href: '/favoritos' },
     { name: 'Blog', href: '/blog' },
     { name: 'Contacto', href: '/contacto' },
   ];
@@ -45,11 +46,6 @@ const Header = () => {
                 {item.name}
               </Link>
             ))}
-            <Link to="/admin">
-              <Button variant="outline" size="sm" className="border-blue-500/30 text-blue-400 hover:bg-blue-500/10">
-                Admin
-              </Button>
-            </Link>
           </div>
 
           {/* Mobile menu button */}
@@ -88,11 +84,6 @@ const Header = () => {
                   {item.name}
                 </Link>
               ))}
-              <Link to="/admin" onClick={() => setIsMenuOpen(false)}>
-                <Button variant="outline" size="sm" className="w-full border-blue-500/30 text-blue-400 hover:bg-blue-500/10">
-                  Admin
-                </Button>
-              </Link>
             </div>
           </motion.div>
         )}

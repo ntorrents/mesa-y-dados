@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Grid, List, Users, Clock, BarChart } from 'lucide-react';
+import { Grid, List, Users, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import GameCard from '@/components/GameCard';
 import FilterSidebar from '@/components/SearchAndFilters';
+import Pagination from '@/components/Pagination';
 import { useData } from '@/contexts/DataContext';
 import { Badge } from '@/components/ui/badge';
 
@@ -72,6 +73,8 @@ const GamesPage = () => {
   const [viewMode, setViewMode] = useState('grid');
   const [sortBy, setSortBy] = useState('name');
   const [isLoading, setIsLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(12);
 
   useEffect(() => {
     // Simulate loading time to ensure all games are loaded
@@ -167,6 +170,27 @@ const GamesPage = () => {
       }
     });
     setFilteredGames(sorted);
+  };
+
+  // Pagination logic
+  const totalPages = Math.ceil(filteredGames.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentGames = filteredGames.slice(startIndex, endIndex);
+
+  // Reset to first page when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filteredGames.length]);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleItemsPerPageChange = (newItemsPerPage) => {
+    setItemsPerPage(newItemsPerPage);
+    setCurrentPage(1);
   };
 
   if (isLoading) {
@@ -274,19 +298,19 @@ const GamesPage = () => {
 
               <motion.div layout>
                 <AnimatePresence>
-                  {filteredGames.length > 0 ? (
+                  {currentGames.length > 0 ? (
                     <div className={`grid gap-4 ${
                       viewMode === 'grid' 
                         ? 'grid-cols-1 md:grid-cols-2 xl:grid-cols-3' 
                         : 'grid-cols-1'
                     }`}>
-                      {filteredGames.map((game, index) => (
+                      {currentGames.map((game, index) => (
                          viewMode === 'grid' 
                          ? <GameCard key={game.id} game={game} index={index} />
                          : <GameListItem key={game.id} game={game} index={index} />
                       ))}
                     </div>
-                  ) : (
+                  ) : filteredGames.length === 0 ? (
                     <div className="text-center py-20">
                       <div className="text-6xl mb-4">🎲</div>
                       <h3 className="text-2xl font-bold text-white mb-2">No se encontraron juegos</h3>
@@ -295,9 +319,27 @@ const GamesPage = () => {
                         Limpiar filtros
                       </Button>
                     </div>
+                  ) : (
+                    <div className="text-center py-20">
+                      <div className="text-6xl mb-4">🎯</div>
+                      <h3 className="text-2xl font-bold text-white mb-2">No hay juegos en esta página</h3>
+                      <p className="text-gray-400 mb-6">Intenta navegar a una página anterior</p>
+                    </div>
                   )}
                 </AnimatePresence>
               </motion.div>
+
+              {/* Pagination */}
+              {filteredGames.length > 0 && (
+                <Pagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  itemsPerPage={itemsPerPage}
+                  totalItems={filteredGames.length}
+                  onPageChange={handlePageChange}
+                  onItemsPerPageChange={handleItemsPerPageChange}
+                />
+              )}
 
               {/* Filtros móviles */}
               <div className="lg:hidden mt-6">
