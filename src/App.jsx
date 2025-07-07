@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet';
 import { Toaster } from '@/components/ui/toaster';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import ScrollToTop from '@/components/ScrollToTop';
 import HomePage from '@/pages/HomePage';
 import GamesPage from '@/pages/GamesPage';
 import GameDetailPage from '@/pages/GameDetailPage';
@@ -17,6 +18,7 @@ function App() {
   return (
     <DataProvider>
       <Router>
+        <ScrollToTop />
         <div className="min-h-screen flex flex-col">
           <Helmet>
             <title>Mesa & Dados - Catálogo de Juegos de Mesa</title>
