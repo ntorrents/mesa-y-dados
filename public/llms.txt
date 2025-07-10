@@ -5,4 +5,5 @@
 - [Blog - Mesa & Dados](/blog): Rankings, recomendaciones y guías sobre juegos de mesa. Descubre nuevas estrategias y encuentra tu próximo juego favorito.
 - [Catálogo de Juegos - Mesa & Dados](/games): Explora nuestra colección completa de juegos de mesa con filtros avanzados por número de jugadores, duración, edad y categoría.
 - [Contacto - Mesa & Dados](/contact): Ponte en contacto conmigo para recomendaciones de juegos, colaboraciones o cualquier consulta sobre juegos de mesa.
+- [Favoritos - Mesa & Dados](/favoritos): Descubre los juegos favoritos de Nil y Christine, actualizados mensualmente con nuestras mejores recomendaciones por categorías.
 - [Mesa & Dados - Tu Catálogo Personal de Juegos de Mesa](/home): Descubre los mejores juegos de mesa con reseñas detalladas, filtros avanzados y recomendaciones personalizadas. Tu guía definitiva para encontrar tu próximo juego favorito.

@@ -2,7 +2,7 @@ export const gamesData = [
 	{
 		id: 2,
 		name: "Azul",
-		image: "/assets/images/games/azul.jpeg",
+		image: "/images/games/azul.jpeg",
 		players: "2-4",
 		minAge: 8,
 		duration: "30-45 min",
@@ -26,7 +26,7 @@ export const gamesData = [
 	{
 		id: 3,
 		name: "Pandemic",
-		image: "/assets/images/games/pandemic.png",
+		image: "/images/games/pandemic.png",
 		players: "2-4",
 		minAge: 13,
 		duration: "45-60 min",
@@ -50,7 +50,7 @@ export const gamesData = [
 	{
 		id: 4,
 		name: "Código Secreto",
-		image: "/assets/images/games/codigo-secreto.jpg",
+		image: "/images/games/codigo-secreto.jpg",
 		players: "2-8",
 		minAge: 14,
 		duration: "15-30 min",
@@ -73,7 +73,7 @@ export const gamesData = [
 	{
 		id: 5,
 		name: "Aventureros al tren",
-		image: "/assets/images/games/aventureros-al-tren.webp",
+		image: "/images/games/aventureros-al-tren.webp",
 		players: "2-5",
 		minAge: 8,
 		duration: "30-60 min",
@@ -96,7 +96,7 @@ export const gamesData = [
 	{
 		id: 6,
 		name: "7 Wonders",
-		image: "/assets/images/games/7-wonders.jpg",
+		image: "/images/games/7-wonders.jpg",
 		players: "2-7",
 		minAge: 10,
 		duration: "30-45 min",
@@ -119,7 +119,7 @@ export const gamesData = [
 	{
 		id: 7,
 		name: "Catan",
-		image: "/assets/images/games/catan.jpg",
+		image: "/images/games/catan.jpg",
 		players: "3-4",
 		minAge: 10,
 		duration: "60-90 min",
@@ -147,7 +147,7 @@ export const gamesData = [
 	{
 		id: 8,
 		name: "Trio",
-		image: "/assets/images/games/trio.jpg",
+		image: "/images/games/trio.jpg",
 		players: "3-6",
 		minAge: 8,
 		duration: "15-20 min",
@@ -171,7 +171,7 @@ export const gamesData = [
 	{
 		id: 9,
 		name: "Manchas",
-		image: "/assets/images/games/manchas.jpg",
+		image: "/images/games/manchas.jpg",
 		players: "2-4",
 		minAge: 8,
 		duration: "20-30 min",
@@ -195,7 +195,7 @@ export const gamesData = [
 	{
 		id: 10,
 		name: "High Society",
-		image: "/assets/images/games/high society.webp",
+		image: "/images/games/high society.webp",
 		players: "3-5",
 		minAge: 10,
 		duration: "15-30 min",
@@ -223,7 +223,7 @@ export const gamesData = [
 	{
 		id: 11,
 		name: "Splendor Duel",
-		image: "/assets/images/games/splendor-duel.jpeg",
+		image: "/images/games/splendor-duel.jpeg",
 		players: "2",
 		minAge: 10,
 		duration: "20-30 min",
@@ -247,7 +247,7 @@ export const gamesData = [
 	{
 		id: 12,
 		name: "Jaipur",
-		image: "/assets/images/games/jaipur.webp",
+		image: "/images/games/jaipur.webp",
 		players: "2",
 		minAge: 8,
 		duration: "20-30 min",
@@ -271,7 +271,7 @@ export const gamesData = [
 	{
 		id: 13,
 		name: "Symbiose",
-		image: "/assets/images/games/symbiose.webp",
+		image: "/images/games/symbiose.webp",
 		players: "2-4",
 		minAge: 10,
 		duration: "30-45 min",
@@ -299,7 +299,7 @@ export const gamesData = [
 	{
 		id: 14,
 		name: "Pelusas",
-		image: "/assets/images/games/pelusas.webp",
+		image: "/images/games/pelusas.webp",
 		players: "2-6",
 		minAge: 6,
 		duration: "10-15 min",
@@ -327,7 +327,7 @@ export const gamesData = [
 	{
 		id: 15,
 		name: "¡Toma 6!",
-		image: "/assets/images/games/toma-6.webp",
+		image: "/images/games/toma-6.webp",
 		players: "2-10",
 		minAge: 8,
 		duration: "20-30 min",
@@ -355,7 +355,7 @@ export const gamesData = [
 	{
 		id: 17,
 		name: "7 Wonders Duel",
-		image: "/assets/images/games/7-wonders-duel.png",
+		image: "/images/games/7-wonders-duel.png",
 		players: "2",
 		minAge: 10,
 		duration: "30 min",
@@ -379,7 +379,7 @@ export const gamesData = [
 	{
 		id: 18,
 		name: "Blind Business",
-		image: "/assets/images/games/blind-business.jpeg",
+		image: "/images/games/blind-business.jpeg",
 		players: "3-6",
 		minAge: 8,
 		duration: "15-20 min",
@@ -398,7 +398,7 @@ export const gamesData = [
 	{
 		id: 19,
 		name: "Cortex",
-		image: "/assets/images/games/cortex.jpg",
+		image: "/images/games/cortex.jpg",
 		players: "2-6",
 		minAge: 8,
 		duration: "15-20 min",
@@ -421,7 +421,7 @@ export const gamesData = [
 	{
 		id: 20,
 		name: "Catan (cartas)",
-		image: "/assets/images/games/catan-cartas.jpg",
+		image: "/images/games/catan-cartas.jpg",
 		players: "2",
 		minAge: 10,
 		duration: "45-60 min",
@@ -444,7 +444,7 @@ export const gamesData = [
 	{
 		id: 21,
 		name: "Ciudadelas",
-		image: "/assets/images/games/ciudadelas.webp",
+		image: "/images/games/ciudadelas.webp",
 		players: "2-8",
 		minAge: 10,
 		duration: "30-60 min",
@@ -467,7 +467,7 @@ export const gamesData = [
 	{
 		id: 22,
 		name: "Coloretto",
-		image: "/assets/images/games/coloretto.jpg",
+		image: "/images/games/coloretto.jpg",
 		players: "2-5",
 		minAge: 8,
 		duration: "20-30 min",
@@ -485,7 +485,7 @@ export const gamesData = [
 	{
 		id: 23,
 		name: "Deep Sea Adventure",
-		image: "/assets/images/games/deep-sea-adventures.webp",
+		image: "/images/games/deep-sea-adventures.webp",
 		players: "2-6",
 		minAge: 8,
 		duration: "30 min",
@@ -509,7 +509,7 @@ export const gamesData = [
 	{
 		id: 24,
 		name: "Exploding Kittens",
-		image: "/assets/images/games/exploding-kittens.jpeg",
+		image: "/images/games/exploding-kittens.jpeg",
 		players: "2-5",
 		minAge: 7,
 		duration: "15 min",
@@ -529,7 +529,7 @@ export const gamesData = [
 	{
 		id: 25,
 		name: "Exploding Kittens: Edición 2 jugadores",
-		image: "/assets/images/games/exploding-kittens-2-jugadores.jpeg",
+		image: "/images/games/exploding-kittens-2-jugadores.jpeg",
 		players: "2",
 		minAge: 7,
 		duration: "10-15 min",
@@ -549,7 +549,7 @@ export const gamesData = [
 	{
 		id: 28,
 		name: "Desierto Prohibido",
-		image: "/assets/images/games/desierto-prohibido.jpg",
+		image: "/images/games/desierto-prohibido.jpg",
 		players: "2-5",
 		minAge: 10,
 		duration: "45 min",
@@ -572,13 +572,32 @@ export const gamesData = [
 	{
 		id: 30,
 		name: "Fantasma Blitz",
-		image: "/assets/images/games/fantasma-blitz.jpeg",
+		image: "/images/games/fantasma-blitz.jpeg",
 		players: "2-8",
 		minAge: 8,
 		duration: "20 min",
 		categories: ["Reflejos", "Party"],
 		difficulty: "Fácil",
 		rating: 4.2,
+		shortDescription:
+			"Sé el más rápido en agarrar el objeto correcto entre cinco opciones.",
+		review:
+			"Fantasma Blitz es un juego de reflejos brillante donde la observación y la velocidad lo son todo. Las cartas presentan objetos con colores y formas mezclados, y los jugadores deben agarrar rápidamente el objeto correcto. Ideal para familias, fiestas y como filler divertido.",
+		externalLink: "https://boardgamegeek.com/boardgame/83195/ghost-blitz",
+		pros: ["Altamente dinámico", "Risas aseguradas", "Reglas inmediatas"],
+		cons: ["Requiere buena vista", "Puede generar caos en grupo"],
+		featured: false,
+	},
+	{
+		id: 31,
+		name: "Jerusalem",
+		image: "/images/games/jerusalem.jpeg",
+		players: "2-4",
+		minAge: 8,
+		duration: "90 min",
+		categories: ["Estrategia", "Ambientado"],
+		difficulty: "Difícil",
+		rating: 4.6,
 		shortDescription:
 			"Sé el más rápido en agarrar el objeto correcto entre cinco opciones.",
 		review:
