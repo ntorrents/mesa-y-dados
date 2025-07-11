@@ -142,7 +142,8 @@ const GameDetailPage = () => {
 											<img
 												src={game.image}
 												alt={game.name}
-												className="w-full h-48 object-cover rounded-lg border border-white/10"
+												className="w-full h-80 object-cover rounded-lg border border-white/10"
+												style={{ minHeight: "20rem", maxHeight: "22rem" }}
 											/>
 										</div>
 									)}
@@ -354,7 +355,7 @@ const GameDetailPage = () => {
 															))}
 													</div>
 												)}
-												{game.rulesFile && (
+												{game.rulesFile && game.rulesFile.trim() !== "" && (
 													<div className="border-t border-white/10 pt-4">
 														<h3 className="text-lg font-semibold text-white mb-3">
 															Reglas Completas

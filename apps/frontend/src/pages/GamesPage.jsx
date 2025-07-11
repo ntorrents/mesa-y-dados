@@ -84,9 +84,9 @@ const GamesPage = () => {
 
 	// Estado de filtros centralizado
 	const [filters, setFilters] = useState({
-		players: [1, 8],
+		players: [],
 		duration: [15, 240],
-		minAge: [3, 18],
+		minAge: 6,
 		categories: [],
 		difficulty: "",
 	});
@@ -131,8 +131,8 @@ const GamesPage = () => {
 	const handleFilter = (filters) => {
 		let filtered = [...games];
 
-		// Filtrado por jugadores
-		if (filters.players) {
+		// Filtrado por jugadores (números individuales)
+		if (filters.players && filters.players.length > 0) {
 			filtered = filtered.filter((game) => {
 				const playerRange = (game.players || "")
 					.replace(/\s/g, "") // quitar espacios
@@ -140,11 +140,11 @@ const GamesPage = () => {
 					.map((p) => parseInt((p || "").replace(/\D/g, "")));
 				const minPlayers = playerRange[0];
 				const maxPlayers = playerRange[1] || minPlayers;
-				return (
-					!isNaN(minPlayers) &&
-					!isNaN(maxPlayers) &&
-					minPlayers <= filters.players[1] &&
-					maxPlayers >= filters.players[0]
+
+				// Verificar si algún número de jugadores seleccionado está en el rango del juego
+				return filters.players.some(
+					(playerCount) =>
+						playerCount >= minPlayers && playerCount <= maxPlayers
 				);
 			});
 		}
@@ -169,13 +169,10 @@ const GamesPage = () => {
 			});
 		}
 
-		// Filtrado por edad mínima
+		// Filtrado por edad mínima (número único)
 		if (filters.minAge) {
 			filtered = filtered.filter(
-				(game) =>
-					!isNaN(game.minAge) &&
-					game.minAge >= filters.minAge[0] &&
-					game.minAge <= filters.minAge[1]
+				(game) => !isNaN(game.minAge) && game.minAge >= filters.minAge
 			);
 		}
 
@@ -198,14 +195,15 @@ const GamesPage = () => {
 					filters.difficulty.toLowerCase()
 			);
 		}
+
 		setFilteredGames(filtered);
 	};
 
 	const handleClearFilters = () => {
 		setFilters({
-			players: [1, 8],
+			players: [],
 			duration: [15, 240],
-			minAge: [3, 18],
+			minAge: 6,
 			categories: [],
 			difficulty: "",
 		});
