@@ -94,12 +94,14 @@ const GamesPage = () => {
 	useEffect(() => {
 		// Simulate loading time to ensure all games are loaded
 		const timer = setTimeout(() => {
-			setFilteredGames(games);
 			setIsLoading(false);
 
 			const searchQuery = searchParams.get("search");
 			if (searchQuery) {
-				handleSearch(searchQuery, games);
+				handleSearch(searchQuery);
+			} else {
+				// Aplicar solo filtros sin búsqueda
+				handleFilter(filters);
 			}
 		}, 500);
 
@@ -111,46 +113,47 @@ const GamesPage = () => {
 		handleFilter(filters);
 	}, [filters, games]);
 
-	const handleSearch = (searchTerm, sourceData = games) => {
-		if (!searchTerm.trim()) {
-			setFilteredGames(sourceData);
-			return;
-		}
-
-		const filtered = sourceData.filter(
-			(game) =>
-				game.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-				(game.categories || []).some((cat) =>
-					cat.toLowerCase().includes(searchTerm.toLowerCase())
-				) ||
-				game.review.toLowerCase().includes(searchTerm.toLowerCase())
-		);
-		setFilteredGames(filtered);
-	};
-
-	const handleFilter = (filters) => {
+	const handleSearch = (searchTerm) => {
+		// Aplicar búsqueda y filtros juntos
 		let filtered = [...games];
 
-		// Filtrado por jugadores (números individuales)
+		// Aplicar búsqueda si hay término
+		if (searchTerm.trim()) {
+			filtered = filtered.filter(
+				(game) =>
+					game.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+					(game.categories || []).some(
+						(cat) => cat && cat.toLowerCase().includes(searchTerm.toLowerCase())
+					) ||
+					(game.review || "").toLowerCase().includes(searchTerm.toLowerCase())
+			);
+		}
+
+		// Aplicar filtros adicionales
+		// Filtrado por jugadores
 		if (filters.players && filters.players.length > 0) {
 			filtered = filtered.filter((game) => {
 				const playerRange = (game.players || "")
-					.replace(/\s/g, "") // quitar espacios
+					.replace(/\s/g, "")
 					.split("-")
 					.map((p) => parseInt((p || "").replace(/\D/g, "")));
 				const minPlayers = playerRange[0];
 				const maxPlayers = playerRange[1] || minPlayers;
 
-				// Verificar si algún número de jugadores seleccionado está en el rango del juego
-				return filters.players.some(
-					(playerCount) =>
-						playerCount >= minPlayers && playerCount <= maxPlayers
-				);
+				return filters.players.some((selectedPlayers) => {
+					if (selectedPlayers === 6) {
+						return maxPlayers >= 6;
+					} else {
+						return (
+							selectedPlayers >= minPlayers && selectedPlayers <= maxPlayers
+						);
+					}
+				});
 			});
 		}
 
 		// Filtrado por duración
-		if (filters.duration) {
+		if (filters.duration && filters.duration.length === 2) {
 			filtered = filtered.filter((game) => {
 				const durationMatch = (game.duration || "")
 					.replace(/\s/g, "")
@@ -169,11 +172,89 @@ const GamesPage = () => {
 			});
 		}
 
-		// Filtrado por edad mínima (número único)
-		if (filters.minAge) {
-			filtered = filtered.filter(
-				(game) => !isNaN(game.minAge) && game.minAge >= filters.minAge
+		// Filtrado por edad mínima
+		if (filters.minAge && filters.minAge !== 6) {
+			filtered = filtered.filter((game) => {
+				return game.minAge && game.minAge >= filters.minAge;
+			});
+		}
+
+		// Filtrado por categorías
+		if (filters.categories && filters.categories.length > 0) {
+			filtered = filtered.filter((game) =>
+				filters.categories.some((category) =>
+					(game.categories || []).some(
+						(cat) => cat && cat.toLowerCase() === category.toLowerCase()
+					)
+				)
 			);
+		}
+
+		// Filtrado por dificultad
+		if (filters.difficulty && filters.difficulty !== "") {
+			filtered = filtered.filter(
+				(game) =>
+					(game.difficulty || "").toLowerCase() ===
+					filters.difficulty.toLowerCase()
+			);
+		}
+
+		setFilteredGames(filtered);
+	};
+
+	const handleFilter = (filters) => {
+		let filtered = [...games];
+
+		// Filtrado por jugadores
+		if (filters.players && filters.players.length > 0) {
+			filtered = filtered.filter((game) => {
+				const playerRange = (game.players || "")
+					.replace(/\s/g, "") // quitar espacios
+					.split("-")
+					.map((p) => parseInt((p || "").replace(/\D/g, "")));
+				const minPlayers = playerRange[0];
+				const maxPlayers = playerRange[1] || minPlayers;
+
+				// Verificar si algún número de jugadores seleccionado está en el rango del juego
+				return filters.players.some((selectedPlayers) => {
+					if (selectedPlayers === 6) {
+						// Para "6+", verificar si el juego soporta 6 o más jugadores
+						return maxPlayers >= 6;
+					} else {
+						// Para números específicos, verificar si está en el rango
+						return (
+							selectedPlayers >= minPlayers && selectedPlayers <= maxPlayers
+						);
+					}
+				});
+			});
+		}
+
+		// Filtrado por duración
+		if (filters.duration && filters.duration.length === 2) {
+			filtered = filtered.filter((game) => {
+				const durationMatch = (game.duration || "")
+					.replace(/\s/g, "")
+					.match(/(\d+)-?(\d+)?/);
+				if (durationMatch) {
+					const minDuration = parseInt(durationMatch[1]);
+					const maxDuration = parseInt(durationMatch[2]) || minDuration;
+					return (
+						!isNaN(minDuration) &&
+						!isNaN(maxDuration) &&
+						minDuration <= filters.duration[1] &&
+						maxDuration >= filters.duration[0]
+					);
+				}
+				return true;
+			});
+		}
+
+		// Filtrado por edad mínima
+		if (filters.minAge && filters.minAge !== 6) {
+			filtered = filtered.filter((game) => {
+				return game.minAge && game.minAge >= filters.minAge;
+			});
 		}
 
 		// Filtrado por categorías (insensible a mayúsculas)
@@ -188,7 +269,7 @@ const GamesPage = () => {
 		}
 
 		// Filtrado por dificultad (insensible a mayúsculas)
-		if (filters.difficulty) {
+		if (filters.difficulty && filters.difficulty !== "") {
 			filtered = filtered.filter(
 				(game) =>
 					(game.difficulty || "").toLowerCase() ===
@@ -207,7 +288,6 @@ const GamesPage = () => {
 			categories: [],
 			difficulty: "",
 		});
-		setFilteredGames(games);
 	};
 
 	const handleSort = (sortOption) => {
@@ -319,9 +399,9 @@ const GamesPage = () => {
 							transition={{ duration: 0.6, delay: 0.1 }}
 							className="hidden lg:block">
 							<FilterSidebar
-								filters={filters}
-								onSearch={(term) => handleSearch(term, games)}
+								onSearch={handleSearch}
 								onFilter={setFilters}
+								filters={filters}
 								onClearFilters={handleClearFilters}
 							/>
 						</motion.div>
@@ -432,9 +512,9 @@ const GamesPage = () => {
 							{/* Filtros móviles */}
 							<div className="lg:hidden mt-6">
 								<FilterSidebar
-									filters={filters}
-									onSearch={(term) => handleSearch(term, games)}
+									onSearch={handleSearch}
 									onFilter={setFilters}
+									filters={filters}
 									onClearFilters={handleClearFilters}
 								/>
 							</div>

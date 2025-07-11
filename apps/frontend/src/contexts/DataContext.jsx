@@ -64,9 +64,6 @@ export const DataProvider = ({ children }) => {
 
 	// Añadir juego
 	const addGame = async (game, token) => {
-		console.log("🚀 addGame iniciado");
-		console.log("📤 Datos a enviar:", game);
-		console.log("🔑 Token:", token || adminToken);
 		try {
 			const res = await fetch("http://localhost:4000/api/games", {
 				method: "POST",
@@ -76,24 +73,16 @@ export const DataProvider = ({ children }) => {
 				},
 				body: JSON.stringify(game),
 			});
-			console.log("📡 Respuesta del servidor:", res.status, res.statusText);
 			if (!res.ok) throw new Error("Error al añadir el juego");
 			await fetchGames();
 			return { success: true };
 		} catch (err) {
-			console.error("❌ Error en addGame:", err);
 			return { success: false, message: err.message };
 		}
 	};
 
 	// Actualizar juego
 	const updateGame = async (id, game, token) => {
-		console.log("🚀 updateGame iniciado");
-		console.log("🆔 ID del juego:", id);
-		console.log("📤 Datos a enviar:", game);
-		console.log("📁 rulesFile en game:", game.rulesFile);
-		console.log("🔑 Token:", token || adminToken ? "Presente" : "Ausente");
-		console.log("🔑 Token completo:", token || adminToken);
 		try {
 			const res = await fetch(`http://localhost:4000/api/games/${id}`, {
 				method: "PUT",
@@ -103,12 +92,10 @@ export const DataProvider = ({ children }) => {
 				},
 				body: JSON.stringify(game),
 			});
-			console.log("📡 Respuesta del servidor:", res.status, res.statusText);
 			if (!res.ok) throw new Error("Error al actualizar el juego");
 			await fetchGames();
 			return { success: true };
 		} catch (err) {
-			console.error("❌ Error en updateGame:", err);
 			return { success: false, message: err.message };
 		}
 	};
@@ -167,7 +154,6 @@ export const DataProvider = ({ children }) => {
 				loading,
 				error,
 				blogPosts,
-				fetchGames,
 				addGame,
 				updateGame,
 				deleteGame,

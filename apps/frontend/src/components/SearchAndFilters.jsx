@@ -82,13 +82,6 @@ const FilterSidebar = ({ onSearch, onFilter, filters, onClearFilters }) => {
 	);
 
 	const clearAllFilters = useCallback(() => {
-		const resetFilters = {
-			players: [],
-			duration: [15, 240],
-			minAge: 6,
-			categories: [],
-			difficulty: "",
-		};
 		setSearchTerm("");
 		onClearFilters();
 		onSearch("");
@@ -254,20 +247,6 @@ const FilterSidebar = ({ onSearch, onFilter, filters, onClearFilters }) => {
 										</Badge>
 									</motion.div>
 								))}
-								{filters.players.map((player, index) => (
-									<motion.div
-										key={player}
-										initial={{ opacity: 0, scale: 0.8 }}
-										animate={{ opacity: 1, scale: 1 }}
-										transition={{ duration: 0.2, delay: index * 0.05 }}>
-										<Badge
-											className="bg-blue-500 text-white text-xs cursor-pointer pr-2"
-											onClick={() => handleRemoveFilter("player", player)}>
-											{player} jugador{player !== 1 ? "es" : ""}
-											<X className="ml-1 h-3 w-3 inline" />
-										</Badge>
-									</motion.div>
-								))}
 								{filters.difficulty && (
 									<motion.div
 										initial={{ opacity: 0, scale: 0.8 }}
@@ -277,6 +256,19 @@ const FilterSidebar = ({ onSearch, onFilter, filters, onClearFilters }) => {
 											className="bg-blue-500 text-white text-xs cursor-pointer pr-2"
 											onClick={() => handleRemoveFilter("difficulty")}>
 											{filters.difficulty}
+											<X className="ml-1 h-3 w-3 inline" />
+										</Badge>
+									</motion.div>
+								)}
+								{filters.players.length > 0 && (
+									<motion.div
+										initial={{ opacity: 0, scale: 0.8 }}
+										animate={{ opacity: 1, scale: 1 }}
+										transition={{ duration: 0.2 }}>
+										<Badge
+											className="bg-blue-500 text-white text-xs cursor-pointer pr-2"
+											onClick={() => handleRemoveFilter("player")}>
+											{filters.players.join(", ")}
 											<X className="ml-1 h-3 w-3 inline" />
 										</Badge>
 									</motion.div>
@@ -302,7 +294,7 @@ const FilterSidebar = ({ onSearch, onFilter, filters, onClearFilters }) => {
 										<Badge
 											className="bg-blue-500 text-white text-xs cursor-pointer pr-2"
 											onClick={() => handleRemoveFilter("minAge")}>
-											{filters.minAge}+ años
+											{filters.minAge}+
 											<X className="ml-1 h-3 w-3 inline" />
 										</Badge>
 									</motion.div>
@@ -313,143 +305,108 @@ const FilterSidebar = ({ onSearch, onFilter, filters, onClearFilters }) => {
 				</AnimatePresence>
 			</div>
 
-			{/* Área de filtros con scroll si es necesario */}
-			<div className="flex-1 overflow-y-auto p-6 pt-2">
-				{/* Categorías - Horizontal layout */}
+			{/* Scrollable Content */}
+			<div className="flex-1 overflow-y-auto p-6 pt-0">
+				{/* Categorías */}
 				<FilterSection title="Categorías" sectionKey="categories">
 					<div className="grid grid-cols-2 gap-2">
-						{" "}
-						{/* antes gap-3 */}
-						{categories.map((category, index) => (
-							<motion.div
+						{categories.map((category) => (
+							<Badge
 								key={category}
-								initial={{ opacity: 0, y: 10 }}
-								animate={{ opacity: 1, y: 0 }}
-								transition={{ duration: 0.3, delay: index * 0.05 }}>
-								<Badge
-									variant={
-										filters.categories.includes(category)
-											? "default"
-											: "outline"
-									}
-									className={`cursor-pointer transition-all duration-200 text-xs py-1.5 px-2 rounded-md border border-gray-300/40 bg-gradient-to-br from-[#3e4555] to-[#414a59] shadow-sm select-none flex items-center justify-center text-center whitespace-nowrap hover:scale-105 ${
-										filters.categories.includes(category)
-											? "ring-2 ring-blue-400 bg-blue-500/80 text-white border-blue-400"
-											: "text-gray-200 hover:bg-blue-900/30 hover:border-blue-400"
-									}`}
-									onClick={() => toggleCategory(category)}>
-									{category}
-								</Badge>
-							</motion.div>
+								variant={
+									filters.categories.includes(category) ? "default" : "outline"
+								}
+								className={`cursor-pointer transition-colors text-xs py-1 px-2 ${
+									filters.categories.includes(category)
+										? "bg-blue-500 text-white"
+										: "border-white/20 text-gray-300 hover:bg-white/5"
+								}`}
+								onClick={() => toggleCategory(category)}>
+								{category}
+							</Badge>
 						))}
 					</div>
 				</FilterSection>
-				{/* Número de jugadores - Horizontal layout */}
+
+				{/* Número de jugadores */}
 				<FilterSection title="Jugadores" sectionKey="players">
-					<div className="grid grid-cols-3 gap-1">
-						{" "}
-						{/* antes gap-2 */}
-						{playerOptions.map((option, index) => (
-							<motion.div
+					<div className="grid grid-cols-3 gap-2">
+						{playerOptions.map((option) => (
+							<Badge
 								key={option.value}
-								initial={{ opacity: 0, scale: 0.8 }}
-								animate={{ opacity: 1, scale: 1 }}
-								transition={{ duration: 0.3, delay: index * 0.05 }}>
-								<button
-									onClick={() => {
-										const newPlayers = filters.players.includes(option.value)
-											? filters.players.filter((p) => p !== option.value)
-											: [...filters.players, option.value];
-										handleFilterChange("players", newPlayers);
-									}}
-									className={`w-full p-1.5 rounded-md text-xs font-medium transition-all duration-200 border border-gray-300/40 bg-gradient-to-br from-[#3e4555] to-[#414a59] shadow-sm select-none flex items-center justify-center hover:scale-105 ${
-										filters.players.includes(option.value)
-											? "ring-2 ring-blue-400 bg-blue-500/80 text-white border-blue-400"
-											: "text-gray-200 hover:bg-blue-900/30 hover:border-blue-400"
-									}`}>
-									{option.label}
-								</button>
-							</motion.div>
+								variant={
+									filters.players.includes(option.value) ? "default" : "outline"
+								}
+								className={`cursor-pointer transition-colors text-xs py-1 px-2 ${
+									filters.players.includes(option.value)
+										? "bg-blue-500 text-white"
+										: "border-white/20 text-gray-300 hover:bg-white/5"
+								}`}
+								onClick={() => {
+									const newPlayers = filters.players.includes(option.value)
+										? filters.players.filter((p) => p !== option.value)
+										: [...filters.players, option.value];
+									handleFilterChange("players", newPlayers);
+								}}>
+								{option.label}
+							</Badge>
 						))}
 					</div>
 				</FilterSection>
-				{/* Duración - Vertical layout */}
+
+				{/* Duración */}
 				<FilterSection title="Duración" sectionKey="duration">
-					<div className="flex flex-col gap-1">
-						{" "}
-						{/* antes gap-2 */}
+					<div className="space-y-1">
 						{durationOptions.map((option, index) => (
-							<motion.div
+							<button
 								key={index}
-								initial={{ opacity: 0, x: -10 }}
-								animate={{ opacity: 1, x: 0 }}
-								transition={{ duration: 0.3, delay: index * 0.05 }}>
-								<button
-									onClick={() => handleFilterChange("duration", option.value)}
-									className={`w-full text-left p-1.5 rounded-md text-xs font-medium transition-all duration-200 border border-gray-300/40 bg-gradient-to-br from-[#3e4555] to-[#414a59] shadow-sm select-none flex items-center gap-2 whitespace-nowrap hover:scale-[1.02] ${
-										isOptionSelected(filters.duration, option.value)
-											? "ring-2 ring-blue-400 bg-blue-500/80 text-white border-blue-400"
-											: "text-gray-200 hover:bg-blue-900/30 hover:border-blue-400"
-									}`}>
-									{option.label}
-								</button>
-							</motion.div>
+								onClick={() => handleFilterChange("duration", option.value)}
+								className={`w-full text-left p-2 rounded-md text-sm transition-colors ${
+									isOptionSelected(filters.duration, option.value)
+										? "bg-blue-500 text-white"
+										: "text-gray-300 hover:bg-white/5"
+								}`}>
+								{option.label}
+							</button>
 						))}
 					</div>
 				</FilterSection>
-				{/* Edad mínima - Horizontal layout */}
-				<FilterSection title="Edad mínima" sectionKey="age">
-					<div className="grid grid-cols-3 gap-1">
-						{" "}
-						{/* antes gap-2 */}
-						{ageOptions.map((option, index) => (
-							<motion.div
-								key={option.value}
-								initial={{ opacity: 0, scale: 0.8 }}
-								animate={{ opacity: 1, scale: 1 }}
-								transition={{ duration: 0.3, delay: index * 0.05 }}>
-								<button
-									onClick={() => handleFilterChange("minAge", option.value)}
-									className={`w-full p-1.5 rounded-md text-xs font-medium transition-all duration-200 border border-gray-300/40 bg-gradient-to-br from-[#3e4555] to-[#414a59] shadow-sm select-none flex items-center justify-center hover:scale-105 ${
-										filters.minAge === option.value
-											? "ring-2 ring-blue-400 bg-blue-500/80 text-white border-blue-400"
-											: "text-gray-200 hover:bg-blue-900/30 hover:border-blue-400"
-									}`}>
-									{option.label}
-								</button>
-							</motion.div>
-						))}
-					</div>
-				</FilterSection>
-				{/* Dificultad - Horizontal layout */}
-				<FilterSection title="Dificultad" sectionKey="difficulty" isLast>
-					<div className="grid grid-cols-3 gap-1">
-						{" "}
-						{/* antes gap-2 */}
-						{difficulties.map((difficulty, index) => (
-							<motion.div
+
+				{/* Dificultad */}
+				<FilterSection title="Dificultad" sectionKey="difficulty">
+					<div className="grid grid-cols-1 gap-2">
+						{difficulties.map((difficulty) => (
+							<button
 								key={difficulty}
-								initial={{ opacity: 0, scale: 0.8 }}
-								animate={{ opacity: 1, scale: 1 }}
-								transition={{ duration: 0.3, delay: index * 0.05 }}>
-								<Badge
-									variant={
-										filters.difficulty === difficulty ? "default" : "outline"
-									}
-									className={`cursor-pointer transition-all duration-200 text-xs py-1.5 px-2 rounded-md border border-gray-300/40 bg-gradient-to-br from-[#3e4555] to-[#414a59] shadow-sm select-none flex items-center justify-center text-center whitespace-nowrap w-full hover:scale-105 ${
-										filters.difficulty === difficulty
-											? "ring-2 ring-blue-400 bg-blue-500/80 text-white border-blue-400"
-											: "text-gray-200 hover:bg-blue-900/30 hover:border-blue-400"
-									}`}
-									onClick={() =>
-										handleFilterChange(
-											"difficulty",
-											filters.difficulty === difficulty ? "" : difficulty
-										)
-									}>
-									{difficulty}
-								</Badge>
-							</motion.div>
+								onClick={() => handleFilterChange("difficulty", difficulty)}
+								className={`w-full text-left p-2 rounded-md text-sm transition-colors ${
+									filters.difficulty === difficulty
+										? "bg-blue-500 text-white"
+										: "text-gray-300 hover:bg-white/5"
+								}`}>
+								{difficulty}
+							</button>
+						))}
+					</div>
+				</FilterSection>
+
+				{/* Edad mínima */}
+				<FilterSection title="Edad mínima" sectionKey="age" isLast>
+					<div className="grid grid-cols-3 gap-2">
+						{ageOptions.map((option) => (
+							<Badge
+								key={option.value}
+								variant={
+									filters.minAge === option.value ? "default" : "outline"
+								}
+								className={`cursor-pointer transition-colors text-xs py-1 px-2 ${
+									filters.minAge === option.value
+										? "bg-blue-500 text-white"
+										: "border-white/20 text-gray-300 hover:bg-white/5"
+								}`}
+								onClick={() => handleFilterChange("minAge", option.value)}>
+								{option.label}
+							</Badge>
 						))}
 					</div>
 				</FilterSection>

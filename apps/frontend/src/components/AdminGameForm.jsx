@@ -526,32 +526,6 @@ const AdminGameForm = forwardRef(
 						placeholder="Escribe aquí las normas rápidas, resumen o explicación personalizada para este juego..."
 						className={`w-full rounded-md px-3 py-2 border focus:outline-none focus:ring-2 focus:ring-blue-500 ${inputClassName}`}
 					/>
-					<div className="text-xs text-blue-300 mt-1 space-y-1">
-						<div>
-							<b>
-								Soporta <span className="text-blue-200">Markdown</span>:
-							</b>{" "}
-							Usa formato para mejorar la legibilidad.
-						</div>
-						<pre className="bg-[#232946] text-white rounded p-2 mt-1 overflow-x-auto">
-							{`## Título grande
-Texto normal, con salto de línea.
-
-- Lista con guiones
-- Otro ítem
-
-**Negrita** y *cursiva*.
-`}
-						</pre>
-						<div>
-							<b>Ejemplo:</b>
-							<span className="ml-2">
-								Encabezados (<code>##</code>), listas (<code>-</code>), negrita
-								(<code>**texto**</code>), cursiva (<code>*texto*</code>), saltos
-								de línea (Enter).
-							</span>
-						</div>
-					</div>
 				</div>
 			</form>
 		);

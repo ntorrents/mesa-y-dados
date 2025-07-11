@@ -22,109 +22,20 @@ async function getGameById(id) {
 
 // Crear un nuevo juego
 async function createGame(game) {
-	const {
-		name,
-		description,
-		image,
-		players,
-		minAge,
-		duration,
-		categories,
-		difficulty,
-		rating,
-		review,
-		externalLink,
-		pros,
-		cons,
-		featured,
-		rulesSummary,
-		rulesFile,
-	} = game;
+	const { name, description, image, ...rest } = game;
 	const res = await pool.query(
-		`INSERT INTO games
-		(name, description, image, players, min_age, duration, categories, difficulty, rating, review, external_link, pros, cons, featured, rules_summary, rules_file)
-		VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16)
-		RETURNING *`,
-		[
-			name,
-			description,
-			image,
-			players,
-			minAge,
-			duration,
-			categories,
-			difficulty,
-			rating,
-			review,
-			externalLink,
-			pros,
-			cons,
-			featured || false,
-			rulesSummary || null,
-			rulesFile || null,
-		]
+		"INSERT INTO games (name, description, image) VALUES ($1, $2, $3) RETURNING *",
+		[name, description, image]
 	);
 	return res.rows[0];
 }
 
 // Actualizar un juego
 async function updateGame(id, game) {
-	const {
-		name,
-		description,
-		image,
-		players,
-		minAge,
-		duration,
-		categories,
-		difficulty,
-		rating,
-		review,
-		externalLink,
-		pros,
-		cons,
-		featured,
-		rulesSummary,
-		rulesFile,
-	} = game;
+	const { name, description, image, ...rest } = game;
 	const res = await pool.query(
-		`UPDATE games SET
-		name = $1,
-		description = $2,
-		image = $3,
-		players = $4,
-		min_age = $5,
-		duration = $6,
-		categories = $7,
-		difficulty = $8,
-		rating = $9,
-		review = $10,
-		external_link = $11,
-		pros = $12,
-		cons = $13,
-		featured = $14,
-		rules_summary = $15,
-		rules_file = $16
-		WHERE id = $17 RETURNING *`,
-		[
-			name,
-			description,
-			image,
-			players,
-			minAge,
-			duration,
-			categories,
-			difficulty,
-			rating,
-			review,
-			externalLink,
-			pros,
-			cons,
-			featured || false,
-			rulesSummary || null,
-			rulesFile || null,
-			id,
-		]
+		"UPDATE games SET name = $1, description = $2, image = $3 WHERE id = $4 RETURNING *",
+		[name, description, image, id]
 	);
 	return res.rows[0];
 }

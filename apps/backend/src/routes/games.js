@@ -105,10 +105,6 @@ router.post("/", verifyToken, async (req, res) => {
 
 // Actualizar un juego (solo admin)
 router.put("/:id", verifyToken, async (req, res) => {
-	console.log("🎯 PUT /api/games/:id recibido");
-	console.log("📦 Body completo:", req.body);
-	console.log("📁 rulesFile en body:", req.body.rulesFile);
-	console.log("🔍 Headers:", req.headers["content-type"]);
 	try {
 		const updatedGame = await updateGame(req.params.id, req.body);
 		if (!updatedGame)
