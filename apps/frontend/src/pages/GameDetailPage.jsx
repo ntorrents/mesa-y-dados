@@ -20,6 +20,9 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useData } from "@/contexts/DataContext";
 import { useToast } from "@/components/ui/use-toast";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import remarkBreaks from "remark-breaks";
 
 const GameDetailPage = () => {
 	const { id } = useParams();
@@ -346,13 +349,12 @@ const GameDetailPage = () => {
 														<h3 className="text-lg font-semibold text-white mb-3">
 															Resumen de Reglas (2 minutos de lectura)
 														</h3>
-														{game.rulesSummary
-															.split("\n\n")
-															.map((paragraph, index) => (
-																<p key={index} className="text-gray-300">
-																	{paragraph}
-																</p>
-															))}
+														<div className="prose prose-invert max-w-none">
+															<ReactMarkdown
+																remarkPlugins={[remarkGfm, remarkBreaks]}>
+																{game.rulesSummary}
+															</ReactMarkdown>
+														</div>
 													</div>
 												)}
 												{game.rulesFile && game.rulesFile.trim() !== "" && (

@@ -1,0 +1,15 @@
+{
+	"scripts": {
+		"front": "cd apps/frontend && npm run dev",
+		"back": "cd apps/backend && node src/index.js",
+		"front-back": "concurrently \"npm run front\" \"npm run back\""
+	},
+	"devDependencies": {
+		"concurrently": "^8.2.2"
+	},
+	"dependencies": {
+		"react-markdown": "^10.1.0",
+		"remark-breaks": "^4.0.0",
+		"remark-gfm": "^4.0.1"
+	}
+}
