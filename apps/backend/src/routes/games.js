@@ -107,8 +107,9 @@ router.post("/", verifyToken, async (req, res) => {
 router.put("/:id", verifyToken, async (req, res) => {
 	try {
 		const updatedGame = await updateGame(req.params.id, req.body);
-		if (!updatedGame)
+		if (!updatedGame) {
 			return res.status(404).json({ message: "Juego no encontrado" });
+		}
 		res.json(updatedGame);
 	} catch (err) {
 		res.status(500).json({ message: "Error al actualizar el juego" });

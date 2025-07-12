@@ -23,5 +23,6 @@ CREATE TABLE IF NOT EXISTS games (
     cons TEXT[],
     featured BOOLEAN DEFAULT false,
     rules_summary TEXT,
-    rules_file VARCHAR(255)
+    rules_file VARCHAR(255),
+    rules_sections JSONB
 ); 
