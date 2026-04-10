@@ -5,6 +5,7 @@ import AdminLogin from "../components/AdminLogin";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { useToast } from "../components/ui/use-toast";
+import { saveAs } from "file-saver";
 
 const AdminPage = () => {
 	const { games, fetchGames, deleteGame, isAdminAuthenticated, logoutAdmin } =
@@ -90,6 +91,57 @@ const AdminPage = () => {
 		window.location.reload();
 	};
 
+	const handleDownloadCSV = async () => {
+		try {
+			const res = await fetch("/api/games/export-csv");
+			if (!res.ok) throw new Error("No se pudo descargar el CSV");
+			const blob = await res.blob();
+			saveAs(blob, "games_export.csv");
+		} catch (err) {
+			toast({
+				title: "Error",
+				description: err.message,
+				variant: "destructive",
+			});
+		}
+	};
+
+	const handleUploadCSV = async (e) => {
+		const file = e.target.files[0];
+		if (!file) return;
+		const formData = new FormData();
+		formData.append("file", file);
+		try {
+			const res = await fetch("/api/games/import-csv", {
+				method: "POST",
+				body: formData,
+			});
+			if (res.status === 207) {
+				const data = await res.json();
+				toast({
+					title: "Importación parcial",
+					description:
+						data.message + ": " + (data.errors?.length || 0) + " errores",
+					variant: "destructive",
+				});
+			} else if (!res.ok) {
+				throw new Error("Error importando el CSV");
+			} else {
+				toast({
+					title: "Importación completada",
+					description: "Juegos importados correctamente.",
+				});
+				fetchGames();
+			}
+		} catch (err) {
+			toast({
+				title: "Error",
+				description: err.message,
+				variant: "destructive",
+			});
+		}
+	};
+
 	return (
 		<div
 			className="min-h-screen"
@@ -148,6 +200,28 @@ const AdminPage = () => {
 
 			{/* Main Content */}
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+				{/* Botones CSV en la sección de juegos */}
+				{selectedTab === "games" && (
+					<div className="flex gap-4 mb-4">
+						<Button
+							onClick={handleDownloadCSV}
+							variant="outline"
+							className="border-blue-400 text-blue-200">
+							⬇️ Descargar CSV
+						</Button>
+						<label className="inline-block cursor-pointer">
+							<span className="bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded">
+								⬆️ Subir CSV
+							</span>
+							<input
+								type="file"
+								accept=".csv"
+								onChange={handleUploadCSV}
+								className="hidden"
+							/>
+						</label>
+					</div>
+				)}
 				{selectedTab === "games" && (
 					<div className="flex gap-8" style={{ height: "calc(100vh - 100px)" }}>
 						{/* Sidebar - Lista de juegos */}

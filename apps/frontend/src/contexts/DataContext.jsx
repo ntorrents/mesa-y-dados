@@ -154,6 +154,7 @@ export const DataProvider = ({ children }) => {
 				loading,
 				error,
 				blogPosts,
+				fetchGames,
 				addGame,
 				updateGame,
 				deleteGame,

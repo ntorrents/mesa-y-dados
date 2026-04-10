@@ -340,20 +340,38 @@ const GameDetailPage = () => {
 										</CardHeader>
 										<CardContent>
 											<div className="prose prose-invert max-w-none">
-												{game.rulesSummary && (
-													<div className="text-gray-300 leading-relaxed space-y-4 mb-6">
-														<h3 className="text-lg font-semibold text-white mb-3">
-															Resumen de Reglas (2 minutos de lectura)
-														</h3>
-														{game.rulesSummary
-															.split("\n\n")
-															.map((paragraph, index) => (
-																<p key={index} className="text-gray-300">
-																	{paragraph}
-																</p>
-															))}
-													</div>
-												)}
+												{/* Secciones de normas rápidas */}
+												{game.rulesSections &&
+													game.rulesSections.length > 0 && (
+														<div className="mb-6">
+															<h3 className="text-lg font-semibold text-white mb-4">
+																Normas Rápidas
+															</h3>
+															<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+																{game.rulesSections.map((section, index) => (
+																	<div
+																		key={index}
+																		className="bg-[#23283a] rounded-xl shadow-md p-6 flex flex-col items-center relative min-h-[220px] border border-white/10">
+																		<div className="text-4xl mb-2">
+																			{section.icon}
+																		</div>
+																		<div className="font-bold text-lg text-center mb-1 text-white">
+																			{section.title}
+																		</div>
+																		<hr className="w-10 border-t border-gray-500 my-2" />
+																		<div className="text-sm text-center text-gray-200 flex-1 mb-2">
+																			{section.content}
+																		</div>
+																		<div className="absolute bottom-3 left-1/2 -translate-x-1/2 text-xs bg-[#23283a] rounded-full px-2 py-1 border border-blue-700 text-blue-300 shadow">
+																			{index + 1}
+																		</div>
+																	</div>
+																))}
+															</div>
+														</div>
+													)}
+
+												{/* Reglas completas (PDF) */}
 												{game.rulesFile && (
 													<div className="border-t border-white/10 pt-4">
 														<h3 className="text-lg font-semibold text-white mb-3">

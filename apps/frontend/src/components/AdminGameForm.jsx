@@ -58,6 +58,27 @@ const AdminGameForm = forwardRef(
 		const [newCategory, setNewCategory] = useState("");
 		const newCategoryInputRef = useRef(null);
 
+		// Estado para las secciones de normas rápidas
+		const [rulesSections, setRulesSections] = useState([]);
+		const icons = [
+			"🎯", // objetivo
+			"⚙️", // preparación
+			"🔄", // turno
+			"🧮", // puntuación
+			"👥", // jugadores
+			"⏱️", // tiempo
+			"��", // cartas
+			"📝", // notas
+			"🚫", // prohibido
+			"❗", // atención
+			"💡", // consejo
+			"🏆", // victoria
+			"🎲", // dados
+			"📦", // componentes
+			"🔔", // aviso
+			"🔚", // final
+		];
+
 		// Recolectar todas las categorías únicas de los juegos
 		useEffect(() => {
 			const cats = new Set();
@@ -84,18 +105,52 @@ const AdminGameForm = forwardRef(
 					cons: Array.isArray(game.cons)
 						? game.cons.join("\n")
 						: game.cons || "",
-					rulesText: game.rulesSummary || game.rulesText || "", // <-- preferir rulesSummary
 				});
+				// Inicializar secciones de normas rápidas
+				if (Array.isArray(game.rulesSections)) {
+					setRulesSections(game.rulesSections);
+				} else {
+					setRulesSections([]);
+				}
 			} else {
 				setFormData({
 					...formData,
 					categories: [],
 					pros: "",
 					cons: "",
-					rulesText: "", // <-- inicializar
 				});
+				setRulesSections([]);
 			}
 		}, [game]);
+
+		// Funciones para manipular secciones
+		const handleSectionChange = (idx, field, value) => {
+			setRulesSections((prev) =>
+				prev.map((section, i) =>
+					i === idx ? { ...section, [field]: value } : section
+				)
+			);
+		};
+
+		const handleAddSection = () => {
+			setRulesSections((prev) => [
+				...prev,
+				{ icon: "🎲", title: "", content: "" },
+			]);
+		};
+
+		const handleRemoveSection = (idx) => {
+			setRulesSections((prev) => prev.filter((_, i) => i !== idx));
+		};
+
+		const moveSection = (from, to) => {
+			setRulesSections((prev) => {
+				const arr = [...prev];
+				const [moved] = arr.splice(from, 1);
+				arr.splice(to, 0, moved);
+				return arr;
+			});
+		};
 
 		const handleInputChange = (e) => {
 			const { name, type, value, checked } = e.target;
@@ -170,7 +225,6 @@ const AdminGameForm = forwardRef(
 
 		const handleSubmit = async (e) => {
 			e.preventDefault();
-			console.log("🔄 handleSubmit iniciado");
 			setUploading(true);
 			let imagePath = formData.image;
 			let rulesPath = formData.rulesFile;
@@ -238,11 +292,9 @@ const AdminGameForm = forwardRef(
 					featured: formData.featured,
 					image: imagePath,
 					rulesFile: rulesPath,
-					rulesSummary: formData.rulesText, // <-- mapear aquí
+					rulesSections: rulesSections, // <-- enviar secciones
 				};
 				delete processedData.rulesText; // eliminar del objeto enviado
-
-				console.log("📤 Datos procesados:", processedData);
 
 				// Guardar o actualizar
 				if (game) {
@@ -517,15 +569,78 @@ const AdminGameForm = forwardRef(
 					</div>
 				</div>
 				<div>
-					<label className={labelClassName}>Normas rápidas / resumen</label>
-					<textarea
-						name="rulesText"
-						value={formData.rulesText}
-						onChange={handleInputChange}
-						rows={5}
-						placeholder="Escribe aquí las normas rápidas, resumen o explicación personalizada para este juego..."
-						className={`w-full rounded-md px-3 py-2 border focus:outline-none focus:ring-2 focus:ring-blue-500 ${inputClassName}`}
-					/>
+					<label className={labelClassName}>
+						Normas rápidas (secciones visuales)
+					</label>
+					<div className="space-y-4">
+						{rulesSections.map((section, idx) => (
+							<Card
+								key={idx}
+								className="p-4 border border-white/10 bg-slate-800/60">
+								<div className="flex flex-col md:flex-row md:items-center gap-3 mb-2">
+									{/* Icon grid selector */}
+									<div className="grid grid-cols-4 gap-1 mb-2 md:mb-0">
+										{icons.map((icon) => (
+											<button
+												key={icon}
+												type="button"
+												className={`text-2xl p-1 rounded-md border transition-colors ${
+													section.icon === icon
+														? "bg-blue-700 border-blue-400 text-white"
+														: "bg-slate-700 border-transparent text-gray-300 hover:bg-blue-900"
+												}`}
+												onClick={() => handleSectionChange(idx, "icon", icon)}
+												title={icon}>
+												{icon}
+											</button>
+										))}
+									</div>
+									<Input
+										value={section.title}
+										onChange={(e) =>
+											handleSectionChange(idx, "title", e.target.value)
+										}
+										placeholder="Título de la sección"
+										className="flex-1 ml-2"
+									/>
+									<Button
+										type="button"
+										variant="ghost"
+										onClick={() => handleRemoveSection(idx)}
+										title="Eliminar sección">
+										🗑️
+									</Button>
+									<Button
+										type="button"
+										variant="ghost"
+										onClick={() => moveSection(idx, idx - 1)}
+										disabled={idx === 0}
+										title="Subir">
+										⬆️
+									</Button>
+									<Button
+										type="button"
+										variant="ghost"
+										onClick={() => moveSection(idx, idx + 1)}
+										disabled={idx === rulesSections.length - 1}
+										title="Bajar">
+										⬇️
+									</Button>
+								</div>
+								<Textarea
+									value={section.content}
+									onChange={(e) =>
+										handleSectionChange(idx, "content", e.target.value)
+									}
+									placeholder="Contenido de la sección"
+									rows={3}
+								/>
+							</Card>
+						))}
+						<Button type="button" onClick={handleAddSection} className="mt-2">
+							+ Añadir sección
+						</Button>
+					</div>
 				</div>
 			</form>
 		);

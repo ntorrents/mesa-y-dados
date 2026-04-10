@@ -8,6 +8,9 @@
 		"concurrently": "^8.2.2"
 	},
 	"dependencies": {
+		"csv-parser": "^3.2.0",
+		"csv-writer": "^1.6.0",
+		"file-saver": "^2.0.5",
 		"react-markdown": "^10.1.0",
 		"remark-breaks": "^4.0.0",
 		"remark-gfm": "^4.0.1"
