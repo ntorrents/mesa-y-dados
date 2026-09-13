@@ -11,7 +11,12 @@ yarn-error.log*
 
 # Local env
 .env
+.env.local
 .env.*.local
+
+# Next.js
+apps/web/.next/
+apps/web/out/
 
 # Vite cache
 .vite/
@@ -34,3 +39,6 @@ coverage/
 # Optional: images or assets that shouldn't be versioned
 # public/assets/tmp/
 # src/assets/uploads/
+
+# temp cover processing
+apps/web/.tmp-covers/

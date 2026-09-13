@@ -1,18 +1,15 @@
 {
-	"scripts": {
-		"front": "cd apps/frontend && npm run dev",
-		"back": "cd apps/backend && node src/index.js",
-		"front-back": "concurrently \"npm run front\" \"npm run back\""
-	},
-	"devDependencies": {
-		"concurrently": "^8.2.2"
-	},
-	"dependencies": {
-		"csv-parser": "^3.2.0",
-		"csv-writer": "^1.6.0",
-		"file-saver": "^2.0.5",
-		"react-markdown": "^10.1.0",
-		"remark-breaks": "^4.0.0",
-		"remark-gfm": "^4.0.1"
-	}
+  "name": "mesa-dados",
+  "private": true,
+  "scripts": {
+    "dev": "npm run dev --workspace=web",
+    "build": "npm run build --workspace=web",
+    "start": "npm run start --workspace=web",
+    "db:push": "npm run db:push --workspace=web",
+    "db:seed": "npm run db:seed --workspace=web",
+    "blob:upload": "npm run blob:upload --workspace=web"
+  },
+  "workspaces": [
+    "apps/web"
+  ]
 }
