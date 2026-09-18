@@ -75,9 +75,9 @@ function Hero({ allCount }: { allCount: number }) {
 
       <motion.div
         style={{ y, opacity }}
-        className="relative z-10 mx-auto flex w-full max-w-6xl flex-1 flex-col justify-end px-4 pb-20 pt-32 sm:px-6 sm:pb-24"
+        className="relative z-10 mx-auto flex w-full min-w-0 max-w-6xl flex-1 flex-col justify-end px-4 pb-16 pt-28 sm:px-6 sm:pb-24 sm:pt-32"
       >
-        <p className="hero-title font-[family-name:var(--font-display)] font-extrabold text-white">
+        <p className="hero-title min-w-0 font-[family-name:var(--font-display)] font-extrabold text-white">
           Mesa<span className="text-[var(--signal)]">&</span>Dados
         </p>
         <div className="mt-5 h-1 w-24 origin-left bg-[var(--signal)]" />
@@ -97,7 +97,7 @@ function Hero({ allCount }: { allCount: number }) {
           style={{ opacity: hintOpacity }}
           className="mt-10 text-xs font-bold uppercase tracking-[0.2em] text-white/45"
         >
-          Desliza para la propuesta de esta noche ↓
+          Desliza para la propuesta de hoy ↓
         </motion.p>
       </motion.div>
     </section>
@@ -127,62 +127,52 @@ function TonightPick({
         className="absolute inset-x-0 top-0 z-20 h-1.5 origin-left bg-[var(--signal)]"
       />
 
-      <div className="mx-auto grid max-w-6xl lg:grid-cols-[0.95fr_1.05fr]">
-        <div className="relative min-h-[340px] overflow-hidden bg-[var(--night)] lg:min-h-[460px]">
-          <motion.div
-            initial={{
-              clipPath: "inset(100% 0 0 0)",
-              y: 48,
-            }}
-            animate={
-              inView
-                ? {
-                    clipPath: "inset(0% 0 0 0)",
-                    y: 0,
-                  }
-                : {}
-            }
-            transition={{ duration: 0.85, ease, delay: 0.12 }}
-            className="absolute inset-0"
-          >
-            {pickImage && (
-              <Image
-                src={pickImage}
-                alt={pick.name}
-                fill
-                unoptimized
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 45vw"
-              />
-            )}
-            <div className="absolute inset-0 bg-gradient-to-t from-[var(--night)]/50 to-transparent" />
-          </motion.div>
-
+      <div className="mx-auto grid max-w-6xl items-center gap-6 px-4 py-8 sm:gap-8 sm:px-6 sm:py-10 lg:grid-cols-[minmax(0,200px)_1fr] lg:gap-12 xl:grid-cols-[minmax(0,240px)_1fr]">
+        <div className="relative mx-auto w-full max-w-[160px] overflow-hidden bg-[var(--night)] sm:max-w-[180px] lg:mx-0 lg:max-w-none">
+          <div className="relative aspect-[3/4] w-full">
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, ease, delay: 0.12 }}
+              className="absolute inset-0"
+            >
+              {pickImage && (
+                <Image
+                  src={pickImage}
+                  alt={pick.name}
+                  fill
+                  unoptimized
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 180px, 240px"
+                />
+              )}
+            </motion.div>
+          </div>
           <motion.span
-            initial={{ opacity: 0, y: -12 }}
+            initial={{ opacity: 0, y: -8 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.5, duration: 0.45, ease }}
-            className="absolute left-4 top-4 z-10 border-2 border-[var(--signal)] bg-[var(--night)] px-3 py-1 font-[family-name:var(--font-display)] text-sm font-bold uppercase tracking-widest text-[var(--signal)]"
+            transition={{ delay: 0.4, duration: 0.4, ease }}
+            className="absolute left-2 top-2 z-10 border border-[var(--signal)] bg-[var(--night)] px-2 py-0.5 font-[family-name:var(--font-display)] text-[10px] font-bold uppercase tracking-widest text-[var(--signal)] sm:left-3 sm:top-3 sm:text-xs"
           >
-            Esta noche
+            Hoy
           </motion.span>
         </div>
 
-        <div className="flex flex-col justify-center px-4 py-12 sm:px-10">
+        <div className="flex min-w-0 flex-col justify-center pb-2 lg:py-4">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.3, duration: 0.5, ease }}
             className="section-label"
           >
-            Propuesta de esta noche
+            Propuesta de hoy
           </motion.p>
 
           <motion.h2
             initial={{ opacity: 0, y: 28 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.4, duration: 0.55, ease }}
-            className="mt-3 font-[family-name:var(--font-display)] text-4xl font-bold tracking-tight text-[var(--ink)] sm:text-5xl"
+            className="mt-2 break-words font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight text-[var(--ink)] sm:text-4xl lg:text-5xl"
           >
             {pick.name}
           </motion.h2>
@@ -191,7 +181,7 @@ function TonightPick({
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.52, duration: 0.5, ease }}
-            className="mt-4 max-w-md text-[var(--muted)]"
+            className="mt-3 max-w-md text-sm text-[var(--muted)] sm:text-base"
           >
             {pick.description}
           </motion.p>
@@ -200,7 +190,7 @@ function TonightPick({
             initial={{ opacity: 0 }}
             animate={inView ? { opacity: 1 } : {}}
             transition={{ delay: 0.65, duration: 0.45 }}
-            className="mt-6 flex flex-wrap gap-6 text-sm font-semibold text-[var(--ink)]"
+            className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold text-[var(--ink)]"
           >
             {[
               `${pick.players} jug.`,
@@ -226,7 +216,7 @@ function TonightPick({
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.85, duration: 0.4, ease }}
           >
-            <Link href={`/juego/${pick.id}`} className="btn-signal mt-8 w-fit">
+            <Link href={`/juego/${pick.id}`} className="btn-signal mt-6 w-fit">
               Abrir ficha
               <ArrowUpRight className="h-4 w-4" />
             </Link>
@@ -251,27 +241,27 @@ function HouseGameSection() {
       >
         <Link
           href="/estimaciones"
-          className="group relative block overflow-hidden bg-[var(--night)] px-6 py-12 text-white sm:px-12 sm:py-16"
+          className="group relative block overflow-hidden bg-[var(--night)] px-5 py-10 text-white sm:px-12 sm:py-16"
         >
           <div
             aria-hidden
-            className="pointer-events-none absolute -right-8 top-0 h-full w-1/2 skew-x-[-12deg] bg-[var(--mark)]/25 transition group-hover:bg-[var(--mark)]/35"
+            className="pointer-events-none absolute -right-8 top-0 hidden h-full w-1/2 skew-x-[-12deg] bg-[var(--mark)]/25 transition group-hover:bg-[var(--mark)]/35 sm:block"
           />
           <div
             aria-hidden
             className="pointer-events-none absolute bottom-0 left-0 h-1.5 w-full origin-left bg-[var(--signal)]"
           />
-          <p className="relative text-xs font-bold uppercase tracking-[0.22em] text-[var(--signal)]">
+          <p className="relative text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--signal)] sm:text-xs sm:tracking-[0.22em]">
             El juego de la casa
           </p>
-          <h2 className="relative mt-3 max-w-xl font-[family-name:var(--font-display)] text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl">
+          <h2 className="relative mt-2 break-words font-[family-name:var(--font-display)] text-[2rem] font-extrabold leading-tight tracking-tight sm:mt-3 sm:text-5xl md:text-6xl">
             Estimaciones
           </h2>
-          <p className="relative mt-4 max-w-md text-white/70">
+          <p className="relative mt-3 max-w-md text-sm text-white/70 sm:mt-4 sm:text-base">
             Intervalos, riesgo y deducción cotidiana. No es trivia: razonas el
             orden de magnitud y te la juegas con el rango.
           </p>
-          <span className="relative mt-8 inline-flex items-center gap-2 border-2 border-white px-5 py-3 text-sm font-bold uppercase tracking-wider transition group-hover:border-[var(--signal)] group-hover:bg-[var(--signal)]">
+          <span className="relative mt-6 inline-flex items-center gap-2 border-2 border-white px-4 py-2.5 text-xs font-bold uppercase tracking-wider transition group-hover:border-[var(--signal)] group-hover:bg-[var(--signal)] sm:mt-8 sm:px-5 sm:py-3 sm:text-sm">
             Jugar ahora
             <ArrowRight className="h-4 w-4" />
           </span>

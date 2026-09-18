@@ -169,12 +169,11 @@ body {
 }
 
 .hero-title {
-  /* ~10 glifos: tamaño para caber en una línea sin forzar scroll-x */
-  font-size: clamp(1.75rem, calc((100vw - 2rem) / 8.4), 5.25rem);
+  font-size: clamp(1.55rem, 9.5vw, 5.25rem);
   white-space: nowrap;
-  line-height: 0.95;
-  letter-spacing: -0.045em;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
   max-width: 100%;
-  overflow: hidden;
+  overflow-wrap: normal;
 }
 

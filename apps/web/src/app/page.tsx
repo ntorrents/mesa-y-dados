@@ -1,4 +1,4 @@
-import { getAllGames, getFeaturedGames, getTopRated } from "@/lib/games";
+import { getAllGames, getDailyPick, getTopRated } from "@/lib/games";
 import { hasDatabase } from "@/db";
 import { mediaSrc } from "@/lib/media";
 import { HomeMotion } from "@/components/HomeMotion";
@@ -13,12 +13,11 @@ const moods = [
 ];
 
 export default async function HomePage() {
-  const [featured, top, all] = await Promise.all([
-    getFeaturedGames(1),
+  const [pick, top, all] = await Promise.all([
+    getDailyPick(),
     getTopRated(6),
     getAllGames(),
   ]);
-  const pick = featured[0] ?? top[0] ?? null;
 
   return (
     <HomeMotion

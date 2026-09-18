@@ -55,6 +55,33 @@ export async function getFeaturedGames(limit = 3): Promise<GameDTO[]> {
     .slice(0, limit);
 }
 
+/** Propuesta estable por día (zona Europe/Madrid). */
+export async function getDailyPick(): Promise<GameDTO | null> {
+  const all = await getAllGames();
+  if (!all.length) return null;
+
+  const featured = all.filter((g) => g.featured);
+  const pool = featured.length ? featured : all;
+
+  const dayKey = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Europe/Madrid",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(new Date());
+
+  let hash = 0;
+  for (let i = 0; i < dayKey.length; i++) {
+    hash = (hash * 31 + dayKey.charCodeAt(i)) >>> 0;
+  }
+  // Mezcla con ids para que el ciclo no sea trivial
+  for (const g of pool) {
+    hash = (hash * 17 + g.id) >>> 0;
+  }
+
+  return pool[hash % pool.length] ?? null;
+}
+
 export async function getCategories(): Promise<string[]> {
   const all = await getAllGames();
   return [...new Set(all.flatMap((g) => g.categories))].sort((a, b) =>

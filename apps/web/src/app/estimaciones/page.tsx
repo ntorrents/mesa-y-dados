@@ -19,7 +19,7 @@ export default async function EstimacionesPage() {
     <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
       <header className="mb-10 max-w-2xl">
         <p className="section-label">El juego de la casa</p>
-        <h1 className="mt-2 font-[family-name:var(--font-display)] text-4xl font-extrabold tracking-tight sm:text-6xl">
+        <h1 className="mt-2 break-words font-[family-name:var(--font-display)] text-4xl font-extrabold tracking-tight sm:text-6xl">
           Estimaciones
         </h1>
         <p className="mt-3 text-[var(--muted)]">

@@ -1,7 +1,13 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect, useEffectEvent, useMemo, useState, useTransition } from "react";
+import {
+  useEffect,
+  useEffectEvent,
+  useMemo,
+  useState,
+  useTransition,
+} from "react";
 import {
   skipEstimationQuestion,
   submitEstimationAnswer,
@@ -25,6 +31,7 @@ export function EstimacionPlay() {
   const [error, setError] = useState<string | null>(null);
   const [left, setLeft] = useState<number | null>(null);
   const [locked, setLocked] = useState(false);
+  const [inputFocused, setInputFocused] = useState(false);
 
   useEffect(() => {
     const raw = sessionStorage.getItem("md_estimation_q");
@@ -58,13 +65,14 @@ export function EstimacionPlay() {
 
   useEffect(() => {
     if (!boot?.secondsPerQuestion || left == null) return;
+    if (inputFocused) return; // pausa con teclado abierto
     if (left <= 0) {
       onTimeout();
       return;
     }
     const t = setTimeout(() => setLeft((s) => (s == null ? s : s - 1)), 1000);
     return () => clearTimeout(t);
-  }, [boot?.secondsPerQuestion, left, boot, pending]);
+  }, [boot?.secondsPerQuestion, left, boot, pending, inputFocused]);
 
   async function handleSubmitResult(
     res: Awaited<ReturnType<typeof submitEstimationAnswer>>,
@@ -75,10 +83,10 @@ export function EstimacionPlay() {
       return;
     }
 
-    // Sin feedback entre preguntas: ni puntuación ni acierto hasta el resultado.
     setLow("");
     setHigh("");
     setError(null);
+    setInputFocused(false);
 
     if (res.finished) {
       sessionStorage.removeItem("md_estimation_q");
@@ -132,124 +140,135 @@ export function EstimacionPlay() {
   const progress = ((q.index + 1) / q.total) * 100;
 
   return (
-    <div className="mx-auto max-w-2xl">
-      <div className="flex items-end justify-between gap-4">
-        <p className="section-label">
-          Pregunta {q.index + 1} / {q.total}
+    <div className="mx-auto flex min-h-[calc(100dvh-8rem)] max-w-2xl flex-col pb-[calc(5.5rem+env(safe-area-inset-bottom))] sm:min-h-0 sm:pb-0">
+      <div className="flex items-center justify-between gap-3">
+        <p className="section-label !tracking-wider">
+          {q.index + 1}/{q.total}
         </p>
         {left != null && (
           <p
-            className={`font-[family-name:var(--font-display)] text-3xl font-bold tabular-nums ${
+            className={`font-[family-name:var(--font-display)] text-xl font-bold tabular-nums sm:text-3xl ${
               left <= 10 ? "text-[var(--signal)]" : "text-[var(--ink)]"
             }`}
           >
-            {left}s
+            {left}s{inputFocused ? " · pausa" : ""}
           </p>
         )}
       </div>
 
-      <div className="mt-4 h-1.5 w-full bg-[var(--line)]">
+      <div className="mt-3 h-1 w-full bg-[var(--line)] sm:mt-4 sm:h-1.5">
         <div
           className="h-full bg-[var(--signal)] transition-all duration-300"
           style={{ width: `${progress}%` }}
         />
       </div>
 
-      <h1 className="mt-8 font-[family-name:var(--font-display)] text-2xl font-bold tracking-tight sm:text-3xl">
+      <h1 className="mt-4 font-[family-name:var(--font-display)] text-lg font-bold leading-snug tracking-tight sm:mt-8 sm:text-3xl">
         {q.prompt}
       </h1>
-      <p className="mt-2 text-sm font-semibold uppercase tracking-wider text-[var(--mark)]">
-        Unidad: {q.unit}
+      <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-[var(--mark)] sm:mt-2 sm:text-sm">
+        {q.unit}
+        {q.hint ? (
+          <span className="ml-2 font-normal normal-case tracking-normal text-[var(--muted)]">
+            · {q.hint}
+          </span>
+        ) : null}
       </p>
-      {q.hint && (
-        <p className="mt-3 text-sm text-[var(--muted)]">Pista: {q.hint}</p>
-      )}
 
-      <form onSubmit={submit} className="mt-10 space-y-4">
-        <div className="grid gap-4 sm:grid-cols-2">
-          <label className="block text-sm font-semibold">
+      <form onSubmit={submit} className="mt-5 flex flex-1 flex-col gap-3 sm:mt-10 sm:gap-4">
+        <div className="grid grid-cols-2 gap-3">
+          <label className="block text-xs font-semibold sm:text-sm">
             Mínimo
             <input
               inputMode="decimal"
+              enterKeyHint="next"
               value={low}
               onChange={(e) => setLow(e.target.value)}
+              onFocus={() => setInputFocused(true)}
+              onBlur={() => setInputFocused(false)}
               disabled={pending || locked}
-              className="mt-2 w-full border border-[var(--line)] bg-[var(--panel)] px-4 py-3 text-lg"
-              placeholder="ej. 100"
+              className="mt-1.5 w-full border border-[var(--line)] bg-[var(--panel)] px-3 py-2.5 text-base sm:mt-2 sm:px-4 sm:py-3 sm:text-lg"
+              placeholder="100"
               required
             />
           </label>
-          <label className="block text-sm font-semibold">
+          <label className="block text-xs font-semibold sm:text-sm">
             Máximo
             <input
               inputMode="decimal"
+              enterKeyHint="done"
               value={high}
               onChange={(e) => setHigh(e.target.value)}
+              onFocus={() => setInputFocused(true)}
+              onBlur={() => setInputFocused(false)}
               disabled={pending || locked}
-              className="mt-2 w-full border border-[var(--line)] bg-[var(--panel)] px-4 py-3 text-lg"
-              placeholder="ej. 400"
+              className="mt-1.5 w-full border border-[var(--line)] bg-[var(--panel)] px-3 py-2.5 text-base sm:mt-2 sm:px-4 sm:py-3 sm:text-lg"
+              placeholder="400"
               required
             />
           </label>
         </div>
 
+        {/* Riesgo compacto en móvil; detalle completo en desktop */}
         <div
-          className={`border-2 px-4 py-4 ${
+          className={`flex items-center justify-between gap-3 border px-3 py-2.5 sm:border-2 sm:px-4 sm:py-4 ${
             risk
               ? "border-[var(--mark)] bg-[var(--panel)]"
-              : "border-[var(--line)] bg-transparent"
+              : "border-[var(--line)]"
           }`}
         >
           {risk ? (
             <>
-              <div className="flex flex-wrap items-baseline justify-between gap-2">
-                <p className="text-xs font-bold uppercase tracking-widest text-[var(--mark)]">
-                  {risk.riskLabel}
+              <div className="min-w-0">
+                <p className="text-[10px] font-bold uppercase tracking-widest text-[var(--mark)] sm:text-xs">
+                  {risk.riskLabel} · {risk.widthApprox}
                 </p>
-                <p className="font-[family-name:var(--font-display)] text-3xl font-extrabold text-[var(--ink)]">
-                  ×{risk.hitMultiplier.toFixed(1)}
+                <p className="mt-0.5 hidden text-sm text-[var(--ink)] sm:block">
+                  {risk.tip}
+                </p>
+                <p className="mt-0.5 text-xs text-[var(--muted)] sm:mt-1">
+                  Fallo: {risk.missScore} pts
                 </p>
               </div>
-              <p className="mt-1 text-sm text-[var(--muted)]">
-                Multiplicador si aciertas · {risk.widthApprox}
-              </p>
-              <p className="mt-2 text-sm text-[var(--ink)]">{risk.tip}</p>
-              <p className="mt-1 text-xs text-[var(--muted)]">
-                Si fallas con este rango: {risk.missScore} pts
+              <p className="shrink-0 font-[family-name:var(--font-display)] text-2xl font-extrabold text-[var(--ink)] sm:text-3xl">
+                ×{risk.hitMultiplier.toFixed(1)}
               </p>
             </>
           ) : (
-            <p className="text-sm text-[var(--muted)]">
-              Escribe mín y máx para ver el multiplicador según el riesgo.
+            <p className="text-xs text-[var(--muted)] sm:text-sm">
+              Escribe mín y máx para ver el multiplicador.
             </p>
           )}
         </div>
 
         {error && <p className="text-sm text-[var(--signal)]">{error}</p>}
 
-        <div className="flex flex-wrap gap-3">
-          <button
-            type="submit"
-            disabled={pending || locked}
-            className="btn-signal"
-          >
-            {pending || locked ? "Siguiente…" : "Enviar intervalo"}
-          </button>
-          <button
-            type="button"
-            disabled={pending || locked}
-            onClick={() => {
-              if (locked) return;
-              setLocked(true);
-              startTransition(async () => {
-                const res = await skipEstimationQuestion(q.id);
-                await handleSubmitResult(res);
-              });
-            }}
-            className="btn-ghost"
-          >
-            Saltar (0 pts)
-          </button>
+        {/* Acciones: sticky abajo en móvil */}
+        <div className="fixed inset-x-0 bottom-0 z-30 border-t border-[var(--line)] bg-[var(--bg)]/95 px-4 py-3 backdrop-blur-md sm:static sm:mt-2 sm:border-0 sm:bg-transparent sm:p-0 sm:backdrop-blur-none">
+          <div className="mx-auto flex max-w-2xl gap-2 pb-[env(safe-area-inset-bottom)] sm:pb-0">
+            <button
+              type="submit"
+              disabled={pending || locked}
+              className="btn-signal flex-1 justify-center sm:flex-none"
+            >
+              {pending || locked ? "…" : "Enviar"}
+            </button>
+            <button
+              type="button"
+              disabled={pending || locked}
+              onClick={() => {
+                if (locked) return;
+                setLocked(true);
+                startTransition(async () => {
+                  const res = await skipEstimationQuestion(q.id);
+                  await handleSubmitResult(res);
+                });
+              }}
+              className="btn-ghost shrink-0"
+            >
+              Saltar
+            </button>
+          </div>
         </div>
       </form>
     </div>
